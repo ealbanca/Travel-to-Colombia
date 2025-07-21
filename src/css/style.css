@@ -41,10 +41,12 @@ body {
     display: flex;
     align-items: center;
     gap: 0.5rem;
+    flex-shrink: 0;
+    /* Prevent logo from shrinking */
 }
 
 .logo img {
-    height: 40px;
+    height: 130px;
     width: auto;
 }
 
@@ -59,22 +61,40 @@ body {
     color: var(--color-accent);
 }
 
+.navigation {
+    flex: 1;
+    /* Take up remaining space */
+    display: flex;
+    justify-content: center;
+    /* Center the navigation */
+    margin-left: 2rem;
+    /* Add some space from logo */
+}
+
 .navigation ul {
     display: flex;
     list-style: none;
-    gap: 2rem;
+    gap: 3rem;
+    /* Increase gap between menu items */
+    width: 100%;
+    justify-content: space-around;
+    /* Distribute evenly */
 }
 
 .navigation a {
     text-decoration: none;
     color: white;
-    padding: 0.5rem 1rem;
+    padding: 1rem 1.5rem;
     border-radius: 4px;
     transition: background-color 0.3s ease;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
 
 .navigation a:hover {
-    background-color: var(--color-secondary);
+    color: var(--color-secondary);
 }
 
 #menu {
@@ -147,6 +167,7 @@ body {
 
     .navigation {
         display: none;
+        margin-left: 0;
     }
 
     #menu {
@@ -157,10 +178,27 @@ body {
         font-size: 1.2rem;
     }
 
+    .logo img {
+        height: 80px;
+        /* Smaller logo on mobile */
+    }
+
     /* Footer responsive */
     #main-footer {
         grid-template-columns: 1fr;
         gap: 1.5rem;
         text-align: center;
+    }
+}
+
+/* Medium screens - adjust navigation spacing */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .navigation ul {
+        gap: 2rem;
+    }
+
+    .navigation a {
+        padding: 0.8rem 1.2rem;
+        font-size: 1rem;
     }
 }
