@@ -1,81 +1,76 @@
-async function fetchWeather() {
-    const response = await fetch('https://api.openweathermap.org/data/2.5/weather?lat=4.709870457379291&lon=-74.058197&appid=37103ed20722fac4aa92ca8315f53307&units=metric');
+async function fetchWeatherBogota() {
+    const response = await fetch('https://api.openweathermap.org/data/2.5/weather?lat=4.7110&lon=-74.0721&appid=37103ed20722fac4aa92ca8315f53307&units=metric');
     const data = await response.json();
-    displayWeather(data);
+    displayWeather(data, 'bogota');
 }
 
-async function fetchForecast() {
-    const response = await fetch('https://api.openweathermap.org/data/2.5/forecast?lat=4.709870457379291&lon=-74.058197&appid=37103ed20722fac4aa92ca8315f53307&units=metric');
+async function fetchWeatherMedellin() {
+    const response = await fetch('https://api.openweathermap.org/data/2.5/weather?lat=6.2442&lon=-75.5812&appid=37103ed20722fac4aa92ca8315f53307&units=metric');
     const data = await response.json();
-
-    // Get tomorrow's date
-    const tomorrow = new Date();
-    tomorrow.setDate(tomorrow.getDate() + 1);
-    const tomorrowDate = tomorrow.toISOString().split('T')[0]; // Format: YYYY-MM-DD
-
-    // Filter forecasts for tomorrow
-    const tomorrowForecasts = data.list.filter(forecast =>
-        forecast.dt_txt.startsWith(tomorrowDate)
-    );
-
-    // Find the highest temperature and corresponding weather data
-    let maxTemp = -Infinity;
-    let maxTempForecast = null;
-
-    tomorrowForecasts.forEach(forecast => {
-        if (forecast.main.temp_max > maxTemp) {
-            maxTemp = forecast.main.temp_max;
-            maxTempForecast = forecast;
-        }
-    });
-
-    displayForecast(maxTempForecast, maxTemp);
+    displayWeather(data, 'medellin');
 }
 
-function displayWeather(data) {
-    const weatherDiv = document.getElementById('current-weather');
+async function fetchWeatherCartagena() {
+    const response = await fetch('https://api.openweathermap.org/data/2.5/weather?lat=10.3910&lon=-75.4794&appid=37103ed20722fac4aa92ca8315f53307&units=metric');
+    const data = await response.json();
+    displayWeather(data, 'cartagena');
+}
+
+function displayWeather(data, city) {
+    const cityNames = {
+        'bogota': 'Bogotá',
+        'medellin': 'Medellín',
+        'cartagena': 'Cartagena'
+    };
+
+    const cityName = cityNames[city] || data.name;
     const temp = Math.round(data.main.temp);
-    weatherDiv.innerHTML = `
-        <h2>Today's Weather</h2>
-        <div class="current-weather">
-        <img src="http://openweathermap.org/img/wn/${data.weather[0].icon}.png" alt="${data.weather[0].description}">
-        <p>${data.weather[0].main} (${data.weather[0].description}) ${temp}°C</p>
-        </div>
-    `;
-
-    // Display high temperature in the banner
-    const banner = document.getElementById('high-temp-message');
     const tempMax = Math.round(data.main.temp_max);
-    banner.textContent = `The highest temperature for today is ${tempMax}°C.`;
+    const tempMin = Math.round(data.main.temp_min);
+    const feelsLike = Math.round(data.main.feels_like);
 
-}
-
-function displayForecast(data, maxTemp) {
-    const forecastDiv = document.getElementById('forecast-weather');
-
-    if (!data) {
-        forecastDiv.innerHTML = `
-            <h2>Tomorrow's Weather</h2>
-            <p>Forecast data not available</p>
-        `;
-        return;
+    // Create or get the weather container for this city
+    let weatherDiv = document.getElementById(`weather-${city}`);
+    if (!weatherDiv) {
+        // Create container if it doesn't exist
+        const weatherSection = document.getElementById('current-weather');
+        weatherDiv = document.createElement('div');
+        weatherDiv.id = `weather-${city}`;
+        weatherDiv.className = 'city-weather';
+        weatherSection.appendChild(weatherDiv);
     }
 
-    const highTemp = Math.round(maxTemp);
-    const time = new Date(data.dt * 1000).toLocaleTimeString('en-US', {
-        hour: 'numeric',
-        minute: '2-digit',
-        hour12: true
-    });
-
-    forecastDiv.innerHTML = `
-        <h2>Tomorrow's Weather</h2>
-        <div class="forecast-weather">
-        <img src="http://openweathermap.org/img/wn/${data.weather[0].icon}.png" alt="${data.weather[0].description}">
-        <p>Tomorrow's High temperature at ${time}: ${highTemp}°C <span class="forecast-details">${data.weather[0].main} (${data.weather[0].description})</span>
+    weatherDiv.innerHTML = `
+        <div class="weather-card">
+            <h3>${cityName}</h3>
+            <div class="weather-info">
+                <img src="https://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png" alt="${data.weather[0].description}">
+                <div class="temperature-info">
+                    <p class="current-temp">${temp}°C</p>
+                    <p class="weather-desc">${data.weather[0].main}</p>
+                    <p class="feels-like">Feels like ${feelsLike}°C</p>
+                </div>
+                <div class="temp-range">
+                    <p class="high-low">H: ${tempMax}°C | L: ${tempMin}°C</p>
+                    <p class="humidity">Humidity: ${data.main.humidity}%</p>
+                </div>
+            </div>
         </div>
     `;
 }
+// Initialize weather display
+function initWeather() {
+    // Add a header to the weather section
+    const weatherSection = document.getElementById('current-weather');
+    if (!weatherSection) {
+        console.error('Weather section not found');
+        return;
+    }
+    // Fetch weather for all three cities
+    fetchWeatherBogota();
+    fetchWeatherMedellin();
+    fetchWeatherCartagena();
+}
 
-fetchWeather();
-fetchForecast();
+// Start the weather display
+initWeather();
