@@ -18,8 +18,8 @@ async function fetchWeatherCartagena() {
 
 function displayWeather(data, city) {
     const cityNames = {
-        'bogota': 'Bogotá',
         'medellin': 'Medellín',
+        'bogota': 'Bogotá',
         'cartagena': 'Cartagena'
     };
 
@@ -67,8 +67,9 @@ function initWeather() {
         return;
     }
     // Fetch weather for all three cities
-    fetchWeatherBogota();
+
     fetchWeatherMedellin();
+    fetchWeatherBogota();
     fetchWeatherCartagena();
 }
 
