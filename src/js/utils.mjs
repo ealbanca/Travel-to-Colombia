@@ -49,7 +49,8 @@ export async function loadHeaderFooter() {
             .replace(/href="\.\/index\.html"/g, 'href="../index.html"')
             .replace(/href="\.\/contact\.html"/g, 'href="../contact.html"')
             .replace(/href="\.\/cart\.html"/g, 'href="../cart.html"')
-            .replace(/href="package_list\/index\.html"/g, 'href="./index.html"')
+            .replace(/href="package_list\/index\.html"/g, 'href="./index.html')
+            .replace(/href="package_list\/index\.html\?city=/g, 'href="./index.html?city=')
         : headerTemplate;
 
     const fixedFooterTemplate = isInSubfolder ?

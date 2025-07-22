@@ -1,0 +1,142 @@
+{
+  "packages": [
+    {
+      "id": "cartagena-001",
+      "title": "Colonial Heritage Discovery",
+      "price": 399,
+      "currency": "USD",
+      "duration": "3 days / 2 nights",
+      "description": "Explore the magical walled city of Cartagena, a UNESCO World Heritage site. Walk through cobblestone streets, visit colonial mansions, and immerse yourself in 500 years of Caribbean history.",
+      "highlights": [
+        "Walking tour of the Walled City",
+        "Castillo San Felipe fortress visit",
+        "Colonial architecture and museums",
+        "Traditional Caribbean lunch",
+        "Sunset from the city walls"
+      ],
+      "includes": [
+        "2 nights accommodation",
+        "Daily breakfast",
+        "Professional historian guide",
+        "Transportation",
+        "All entrance fees"
+      ],
+      "image": "cartagena.webp"
+    },
+    {
+      "id": "cartagena-002", 
+      "title": "Caribbean Beach & Culture",
+      "price": 569,
+      "currency": "USD",
+      "duration": "4 days / 3 nights",
+      "description": "Combine the historic charm of Cartagena with beautiful Caribbean beaches. Perfect blend of cultural exploration and tropical relaxation on pristine white sand beaches.",
+      "highlights": [
+        "Historic city center exploration",
+        "Rosario Islands boat trip",
+        "Beach day at Playa Blanca",
+        "Traditional vallenato music experience",
+        "Caribbean seafood cooking class"
+      ],
+      "includes": [
+        "3 nights beachfront accommodation",
+        "All meals included",
+        "Boat transportation to islands",
+        "Professional guide",
+        "Airport transfers"
+      ],
+      "image": "cartagena.webp"
+    },
+    {
+      "id": "cartagena-003",
+      "title": "Culinary Caribbean Adventure",
+      "price": 459,
+      "currency": "USD", 
+      "duration": "3 days / 2 nights",
+      "description": "Taste the flavors of the Caribbean coast with this gastronomic journey. Experience fusion cuisine, traditional dishes, tropical fruits, and the best seafood of the Colombian coast.",
+      "highlights": [
+        "Street food tour in Getsemaní",
+        "Caribbean cooking class with local chef",
+        "Fresh seafood market visit",
+        "Tropical fruit tasting experience",
+        "Fine dining at award-winning restaurants"
+      ],
+      "includes": [
+        "2 nights accommodation",
+        "All food experiences",
+        "Professional food guide",
+        "Market visits and ingredients",
+        "Recipe collection booklet"
+      ],
+      "image": "cartagena.webp"
+    },
+    {
+      "id": "cartagena-004",
+      "title": "Island Hopping Adventure",
+      "price": 629,
+      "currency": "USD",
+      "duration": "4 days / 3 nights", 
+      "description": "Explore the stunning archipelago around Cartagena with crystal-clear waters, coral reefs, and pristine beaches. Perfect for water sports enthusiasts and beach lovers.",
+      "highlights": [
+        "Rosario Islands full-day excursion",
+        "Snorkeling and diving experiences",
+        "Barú Island beach relaxation",
+        "Mangrove ecosystem boat tour",
+        "Water sports activities"
+      ],
+      "includes": [
+        "3 nights accommodation",
+        "All boat transportation",
+        "Snorkeling equipment",
+        "Professional marine guide",
+        "Packed lunches for excursions"
+      ],
+      "image": "cartagena.webp"
+    },
+    {
+      "id": "cartagena-005",
+      "title": "Romantic Getaway Package",
+      "price": 799,
+      "currency": "USD",
+      "duration": "5 days / 4 nights",
+      "description": "Perfect romantic escape in one of South America's most romantic cities. Luxury accommodations, private experiences, and unforgettable moments in the Caribbean pearl.",
+      "highlights": [
+        "Luxury boutique hotel in Old City",
+        "Private horse carriage tour",
+        "Sunset sailing with champagne",
+        "Couples spa treatments",
+        "Private dinner on rooftop terrace"
+      ],
+      "includes": [
+        "4 nights luxury accommodation",
+        "Romantic dinners included",
+        "Private experiences",
+        "Couples activities",
+        "24/7 concierge service"
+      ],
+      "image": "cartagena.webp"
+    },
+    {
+      "id": "cartagena-006",
+      "title": "Family Caribbean Fun",
+      "price": 519,
+      "currency": "USD",
+      "duration": "4 days / 3 nights",
+      "description": "Family-friendly Caribbean adventure with activities for all ages. Explore history, enjoy beaches, and create lasting memories in this magical coastal city.",
+      "highlights": [
+        "Family-friendly city walking tours",
+        "Beach day with water activities",
+        "Interactive pirate ship experience",
+        "Children's workshops on local crafts",
+        "Family horse carriage ride"
+      ],
+      "includes": [
+        "3 nights family accommodation",
+        "Daily breakfast",
+        "Family-friendly guide",
+        "All entrance fees",
+        "Kid-friendly beach activities"
+      ],
+      "image": "cartagena.webp"
+    }
+  ]
+}

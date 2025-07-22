@@ -1,0 +1,142 @@
+{
+  "packages": [
+    {
+      "id": "medellin-001",
+      "title": "Eternal Spring Discovery",
+      "price": 349,
+      "currency": "USD",
+      "duration": "3 days / 2 nights",
+      "description": "Experience the transformation of Medellín, the 'City of Eternal Spring'. Explore innovative urban projects, vibrant neighborhoods, and enjoy the perfect year-round climate that makes this city so special.",
+      "highlights": [
+        "Metro system and cable car tours",
+        "Comuna 13 graffiti and transformation tour",
+        "Guatapé and El Peñón day trip",
+        "Traditional paisa food experience",
+        "Botero Plaza and sculptures"
+      ],
+      "includes": [
+        "2 nights accommodation",
+        "Daily breakfast",
+        "Professional guide",
+        "Transportation",
+        "All entrance fees"
+      ],
+      "image": "medellin.webp"
+    },
+    {
+      "id": "medellin-002", 
+      "title": "Innovation & Culture Experience",
+      "price": 479,
+      "currency": "USD",
+      "duration": "4 days / 3 nights",
+      "description": "Discover Medellín's incredible transformation through innovation districts, world-class museums, and cultural spaces. Perfect for those interested in urban development and Colombian creativity.",
+      "highlights": [
+        "Innovation District (Distrito E) tour",
+        "Modern Art Museum and Casa de la Memoria",
+        "El Poblado nightlife experience",
+        "Coffee farm visit in nearby mountains",
+        "Traditional tango show"
+      ],
+      "includes": [
+        "3 nights boutique hotel accommodation",
+        "All meals included",
+        "Cultural activities and shows",
+        "Professional guide",
+        "Airport transfers"
+      ],
+      "image": "medellin.webp"
+    },
+    {
+      "id": "medellin-003",
+      "title": "Coffee Culture Adventure",
+      "price": 429,
+      "currency": "USD", 
+      "duration": "3 days / 2 nights",
+      "description": "Immerse yourself in Colombia's famous coffee culture with visits to local fincas, coffee tastings, and traditional preparation methods. Learn about the coffee process from bean to cup.",
+      "highlights": [
+        "Coffee finca visit and tour",
+        "Professional coffee tasting session",
+        "Traditional coffee preparation class",
+        "Visit to Coffee Cultural Landscape",
+        "Local coffee shop crawl in Medellín"
+      ],
+      "includes": [
+        "2 nights accommodation",
+        "Coffee experiences and tastings",
+        "Professional coffee guide",
+        "Transportation to coffee farms",
+        "Coffee samples to take home"
+      ],
+      "image": "medellin.webp"
+    },
+    {
+      "id": "medellin-004",
+      "title": "Outdoor Adventure Escape",
+      "price": 559,
+      "currency": "USD",
+      "duration": "4 days / 3 nights", 
+      "description": "Take advantage of Medellín's perfect climate and stunning landscapes. Perfect for adventure seekers who want to combine city exploration with outdoor activities in the Andes.",
+      "highlights": [
+        "Paragliding over the Aburrá Valley",
+        "Hiking in Arví Natural Park",
+        "Rock climbing in nearby mountains",
+        "River rafting day trip",
+        "Mountain biking through coffee plantations"
+      ],
+      "includes": [
+        "3 nights accommodation",
+        "All outdoor activities",
+        "Professional adventure guide",
+        "Equipment rental",
+        "Packed lunches for excursions"
+      ],
+      "image": "medellin.webp"
+    },
+    {
+      "id": "medellin-005",
+      "title": "Luxury Medellín Experience",
+      "price": 729,
+      "currency": "USD",
+      "duration": "5 days / 4 nights",
+      "description": "Experience Medellín in luxury style with premium accommodations, fine dining, exclusive tours, and VIP experiences. Perfect for travelers seeking comfort and sophistication.",
+      "highlights": [
+        "5-star hotel in El Poblado",
+        "Private helicopter tour over the city",
+        "Exclusive restaurant experiences",
+        "VIP access to cultural sites",
+        "Personal shopping tour in Premium Plaza"
+      ],
+      "includes": [
+        "4 nights luxury accommodation",
+        "All gourmet meals",
+        "Private transportation",
+        "Exclusive access and guides",
+        "24/7 concierge service"
+      ],
+      "image": "medellin.webp"
+    },
+    {
+      "id": "medellin-006",
+      "title": "Family Friendly Medellín",
+      "price": 459,
+      "currency": "USD",
+      "duration": "4 days / 3 nights",
+      "description": "Family adventure in the City of Eternal Spring with activities for all ages. Enjoy educational experiences, parks, and family-friendly attractions in this welcoming city.",
+      "highlights": [
+        "Interactive science museum Parque Explora",
+        "Medellín Zoo and aquarium visit",
+        "Family cable car rides with city views",
+        "Children's activities at Pueblito Paisa",
+        "Family-friendly salsa dancing lesson"
+      ],
+      "includes": [
+        "3 nights family accommodation",
+        "Daily breakfast",
+        "Family-friendly guide",
+        "All entrance fees",
+        "Kid-friendly meal options"
+      ],
+      "image": "medellin.webp"
+    }
+  ]
+}
