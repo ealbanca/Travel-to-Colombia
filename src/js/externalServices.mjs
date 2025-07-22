@@ -11,11 +11,22 @@ function convertToJson(res) {
 // Function to load local travel packages
 export async function getTravelPackages(city) {
     try {
-        const response = await fetch(`./data/${city.toLowerCase()}-packages.json`);
+        // Detect if we're in a subdirectory and adjust path accordingly
+        const isInSubfolder = window.location.pathname.includes('/package_list/');
+        const basePath = isInSubfolder ? '../' : './';
+        const jsonPath = `${basePath}public/json/${city.toLowerCase()}-packages.json`;
+        
+        console.log('Loading packages from:', jsonPath);
+        console.log('Is in subfolder:', isInSubfolder);
+        
+        const response = await fetch(jsonPath);
+        console.log('Response status:', response.status);
+        
         if (!response.ok) {
-            throw new Error(`Failed to load ${city} packages`);
+            throw new Error(`Failed to load ${city} packages - Status: ${response.status}`);
         }
         const data = await response.json();
+        console.log('Loaded data:', data);
         return data.packages;
     } catch (error) {
         console.error(`Error loading ${city} packages:`, error);

@@ -33,18 +33,8 @@ export default async function packageList(selector, city) {
     const el = document.querySelector(selector);
     // get the list of packages
     const packages = await getTravelPackages(city);
-    console.log(packages);
+    console.log('Loaded packages:', packages);
     // render out the package list to the element
     renderListWithTemplate(packageCardTemplate, el, packages);
     document.querySelector(".title").innerHTML = `${city.charAt(0).toUpperCase() + city.slice(1)} Travel Packages`;
-}
-
-// Get the city from the URL
-const params = new URLSearchParams(window.location.search);
-const city = params.get("city");
-
-// Only run if city exists
-if (city) {
-    // Call packageList with the selector for your package grid and the city
-    packageList(".package-grid", city);
 }

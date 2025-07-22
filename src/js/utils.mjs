@@ -60,6 +60,19 @@ export async function loadHeaderFooter() {
     // Insert the fixed templates
     headerEl.innerHTML = fixedHeaderTemplate;
     footerEl.innerHTML = fixedFooterTemplate;
+    
+    // Set up footer copyright information
+    setupFooter();
+}
+
+// Function to set up footer copyright information
+export function setupFooter() {
+    const d = new Date();
+    let year = d.getFullYear();
+    const currentYearElement = document.getElementById("currentYear");
+    if (currentYearElement) {
+        currentYearElement.innerHTML = "<br><br>" + "Hared Albancando Robles<br><br>Final Project WDD 330<br><br>" + year + " &copy;";
+    }
 }// Function to get URL parameters
 export function getParam(param) {
     const urlParams = new URLSearchParams(window.location.search);

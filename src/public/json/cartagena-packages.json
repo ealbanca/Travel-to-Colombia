@@ -21,10 +21,10 @@
         "Transportation",
         "All entrance fees"
       ],
-      "image": "cartagena.webp"
+      "image": "cartagena-colonial.webp"
     },
     {
-      "id": "cartagena-002", 
+      "id": "cartagena-002",
       "title": "Caribbean Beach & Culture",
       "price": 569,
       "currency": "USD",
@@ -44,13 +44,13 @@
         "Professional guide",
         "Airport transfers"
       ],
-      "image": "cartagena.webp"
+      "image": "cartagena-caribbean.webp"
     },
     {
       "id": "cartagena-003",
       "title": "Culinary Caribbean Adventure",
       "price": 459,
-      "currency": "USD", 
+      "currency": "USD",
       "duration": "3 days / 2 nights",
       "description": "Taste the flavors of the Caribbean coast with this gastronomic journey. Experience fusion cuisine, traditional dishes, tropical fruits, and the best seafood of the Colombian coast.",
       "highlights": [
@@ -67,14 +67,14 @@
         "Market visits and ingredients",
         "Recipe collection booklet"
       ],
-      "image": "cartagena.webp"
+      "image": "cartagena-culinary.webp"
     },
     {
       "id": "cartagena-004",
       "title": "Island Hopping Adventure",
       "price": 629,
       "currency": "USD",
-      "duration": "4 days / 3 nights", 
+      "duration": "4 days / 3 nights",
       "description": "Explore the stunning archipelago around Cartagena with crystal-clear waters, coral reefs, and pristine beaches. Perfect for water sports enthusiasts and beach lovers.",
       "highlights": [
         "Rosario Islands full-day excursion",
@@ -90,7 +90,7 @@
         "Professional marine guide",
         "Packed lunches for excursions"
       ],
-      "image": "cartagena.webp"
+      "image": "cartagena-island.webp"
     },
     {
       "id": "cartagena-005",
@@ -113,7 +113,7 @@
         "Couples activities",
         "24/7 concierge service"
       ],
-      "image": "cartagena.webp"
+      "image": "cartagena-romantic.webp"
     },
     {
       "id": "cartagena-006",
@@ -136,7 +136,7 @@
         "All entrance fees",
         "Kid-friendly beach activities"
       ],
-      "image": "cartagena.webp"
+      "image": "cartagena-family.webp"
     }
   ]
 }

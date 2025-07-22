@@ -96,7 +96,22 @@ body {
     letter-spacing: 0.5px;
 }
 
-.navigation a:hover {
+.dropdown-toggle {
+    text-decoration: none;
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+    font-size: 1.1rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    display: inline-block;
+}
+
+.navigation a:hover,
+.dropdown-toggle:hover {
     color: var(--color-secondary);
 }
 
