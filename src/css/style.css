@@ -361,7 +361,6 @@ main {
     max-width: 1200px;
     margin: 0 auto;
     list-style: none;
-    padding: 0;
 }
 
 .packages-grid li {
@@ -422,6 +421,119 @@ main {
     font-size: 1.2rem;
     font-weight: bold;
     text-align: center;
+    margin-top: auto;
+}
+
+/* Package List Styles */
+.package-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+    list-style: none;
+}
+
+.package-card {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 105, 148, 0.1);
+}
+
+.package-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.package-card a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    height: 100%;
+}
+
+.package-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.package-info {
+    padding: 1.5rem;
+}
+
+.package__title {
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+    font-family: var(--font-healine);
+    font-weight: bold;
+}
+
+.package__duration {
+    font-size: 0.9rem;
+    color: var(--color-secondary);
+    margin-bottom: 1rem;
+    font-weight: 500;
+}
+
+.package__description {
+    font-size: 1rem;
+    color: var(--color-text);
+    line-height: 1.6;
+    margin-bottom: 1rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.package__highlights {
+    margin-bottom: 1.5rem;
+}
+
+.package__highlights h4 {
+    font-size: 1rem;
+    color: var(--color-primary);
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+}
+
+.package__highlights ul {
+    list-style: none;
+    padding: 0;
+}
+
+.package__highlights li {
+    font-size: 0.9rem;
+    color: var(--color-text);
+    margin-bottom: 0.3rem;
+    padding-left: 1rem;
+    position: relative;
+}
+
+.package__highlights li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--color-secondary);
+    font-weight: bold;
+}
+
+.package__price {
+    font-size: 1.3rem;
+    color: var(--color-accent);
+    font-weight: bold;
+    text-align: center;
+    background-color: rgba(255, 215, 0, 0.1);
+    padding: 1rem;
+    border-radius: 8px;
     margin-top: auto;
 }
 

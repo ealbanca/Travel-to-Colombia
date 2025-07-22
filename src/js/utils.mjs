@@ -28,13 +28,48 @@ function loadTemplate(path) {
 }
 
 export async function loadHeaderFooter() {
+    // Detect if we're in a subdirectory by checking the current path
+    const isInSubfolder = window.location.pathname.includes('/package_list/');
+    const basePath = isInSubfolder ? '../' : './';
+
     // header template will still be a function! But one where we have pre-supplied the argument.
-    // headerTemplate and footerTemplate will be almost identical, but they will remember the path we passed in when we created them
-    // why is it important that they stay functions?  The renderWithTemplate function is expecting a template function...if we sent it a string it would break, if we changed it to expect a string then it would become less flexible.
-    const headerTemplateFn = loadTemplate("./public/partials/header.html");
-    const footerTemplateFn = loadTemplate("./public/partials/footer.html");
+    const headerTemplateFn = loadTemplate(`${basePath}public/partials/header.html`);
+    const footerTemplateFn = loadTemplate(`${basePath}public/partials/footer.html`);
     const headerEl = document.querySelector("#main-header");
     const footerEl = document.querySelector("#main-footer");
-    await renderWithTemplate(headerTemplateFn, headerEl);
-    await renderWithTemplate(footerTemplateFn, footerEl);
+
+    // Load and adjust paths in templates
+    const headerTemplate = await headerTemplateFn();
+    const footerTemplate = await footerTemplateFn();
+
+    // Fix image and link paths for subfolders
+    const fixedHeaderTemplate = isInSubfolder ?
+        headerTemplate
+            .replace(/src="\.\/public\/images\//g, 'src="../public/images/')
+            .replace(/href="\.\/index\.html"/g, 'href="../index.html"')
+            .replace(/href="\.\/contact\.html"/g, 'href="../contact.html"')
+            .replace(/href="\.\/cart\.html"/g, 'href="../cart.html"')
+            .replace(/href="package_list\/index\.html"/g, 'href="./index.html"')
+        : headerTemplate;
+
+    const fixedFooterTemplate = isInSubfolder ?
+        footerTemplate.replace(/src="public\/images\//g, 'src="../public/images/')
+        : footerTemplate;
+
+    // Insert the fixed templates
+    headerEl.innerHTML = fixedHeaderTemplate;
+    footerEl.innerHTML = fixedFooterTemplate;
+}// Function to get URL parameters
+export function getParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+}
+
+// Function for rendering lists with templates
+export function renderListWithTemplate(templateFn, parentElement, list, position = "afterbegin", clear = true) {
+    if (clear) {
+        parentElement.innerHTML = "";
+    }
+    const htmlStrings = list.map(templateFn);
+    parentElement.insertAdjacentHTML(position, htmlStrings.join(""));
 }

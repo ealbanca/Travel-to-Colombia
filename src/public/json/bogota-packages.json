@@ -1,0 +1,142 @@
+{
+  "packages": [
+    {
+      "id": "bogota-001",
+      "title": "Historic Bogotá Discovery",
+      "price": 299,
+      "currency": "USD",
+      "duration": "3 days / 2 nights",
+      "description": "Explore the heart of Colombia's capital with visits to La Candelaria historic district, Gold Museum, and Bolívar Square. Walk through cobblestone streets and discover the rich colonial heritage of this fascinating city.",
+      "highlights": [
+        "Guided walking tour of La Candelaria",
+        "Gold Museum (Museo del Oro) entrance",
+        "Monserrate Hill cable car ride",
+        "Traditional Colombian lunch",
+        "Street art tour in downtown"
+      ],
+      "includes": [
+        "2 nights accommodation",
+        "Daily breakfast",
+        "Professional guide",
+        "Transportation",
+        "Entrance fees"
+      ],
+      "image": "bogota-historic.webp"
+    },
+    {
+      "id": "bogota-002", 
+      "title": "Cultural Immersion Experience",
+      "price": 459,
+      "currency": "USD",
+      "duration": "4 days / 3 nights",
+      "description": "Dive deep into Bogotá's vibrant cultural scene with museum visits, local markets, and authentic experiences. Perfect for culture enthusiasts wanting to understand the soul of Colombian capital.",
+      "highlights": [
+        "Botero Museum and National Museum visits",
+        "Paloquemao Market food tour",
+        "Traditional cooking class",
+        "Andean music and dance show",
+        "Visit to Simon Bolivar Park"
+      ],
+      "includes": [
+        "3 nights boutique hotel accommodation",
+        "All meals included",
+        "Cultural activities",
+        "Professional guide",
+        "Airport transfers"
+      ],
+      "image": "bogota-cultural.webp"
+    },
+    {
+      "id": "bogota-003",
+      "title": "Bogotá Gastronomic Adventure",
+      "price": 389,
+      "currency": "USD", 
+      "duration": "3 days / 2 nights",
+      "description": "Taste your way through Bogotá's incredible culinary scene, from street food to high-end restaurants. Experience the diversity of Colombian cuisine in the nation's gastronomic capital.",
+      "highlights": [
+        "Food tour in La Macarena neighborhood",
+        "Coffee plantation visit near the city",
+        "Cooking class with local chef",
+        "Fine dining at award-winning restaurant",
+        "Traditional arepas and empanadas tasting"
+      ],
+      "includes": [
+        "2 nights accommodation",
+        "All food experiences",
+        "Professional food guide",
+        "Transportation to activities",
+        "Recipe collection booklet"
+      ],
+      "image": "bogota-food.webp"
+    },
+    {
+      "id": "bogota-004",
+      "title": "Adventure & Nature Escape",
+      "price": 519,
+      "currency": "USD",
+      "duration": "4 days / 3 nights", 
+      "description": "Combine urban exploration with natural adventures around Bogotá. Perfect for active travelers who want to experience both city culture and Colombia's stunning landscapes.",
+      "highlights": [
+        "Zipaquirá Salt Cathedral day trip",
+        "Hiking in Chingaza National Park",
+        "Mountain biking in Eastern Hills",
+        "Rock climbing instruction",
+        "Guatavita Lake and El Dorado legend tour"
+      ],
+      "includes": [
+        "3 nights accommodation",
+        "All outdoor activities",
+        "Professional adventure guide",
+        "Equipment rental",
+        "Packed lunches for excursions"
+      ],
+      "image": "bogota-adventure.webp"
+    },
+    {
+      "id": "bogota-005",
+      "title": "Business & Conference Package",
+      "price": 649,
+      "currency": "USD",
+      "duration": "5 days / 4 nights",
+      "description": "Perfect for business travelers combining work with leisure. Includes premium accommodations, business facilities, and carefully selected cultural experiences during free time.",
+      "highlights": [
+        "4-star business hotel with conference facilities",
+        "Airport VIP transfer service",
+        "Half-day city tour",
+        "Business dinner at exclusive restaurant",
+        "Access to hotel executive lounge"
+      ],
+      "includes": [
+        "4 nights premium accommodation",
+        "Daily breakfast and one dinner",
+        "Business center access",
+        "Private transportation",
+        "24/7 concierge service"
+      ],
+      "image": "bogota-business.webp"
+    },
+    {
+      "id": "bogota-006",
+      "title": "Family Fun Bogotá",
+      "price": 425,
+      "currency": "USD",
+      "duration": "4 days / 3 nights",
+      "description": "Family-friendly adventure through Bogotá with activities suitable for all ages. Create lasting memories exploring Colombia's capital with your loved ones.",
+      "highlights": [
+        "Interactive science museum visit",
+        "Bogotá Zoo and botanical garden",
+        "Children's workshops at cultural centers",
+        "Family bike tour in safe areas",
+        "Traditional puppet show performance"
+      ],
+      "includes": [
+        "3 nights family accommodation",
+        "Daily breakfast",
+        "Family-friendly guide",
+        "All entrance fees",
+        "Kid-friendly meal options"
+      ],
+      "image": "bogota-family.webp"
+    }
+  ]
+}
