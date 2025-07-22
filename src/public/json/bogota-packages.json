@@ -21,10 +21,10 @@
         "Transportation",
         "Entrance fees"
       ],
-      "image": "bogota-historic.webp"
+      "image": "bogota-oro.webp"
     },
     {
-      "id": "bogota-002", 
+      "id": "bogota-002",
       "title": "Cultural Immersion Experience",
       "price": 459,
       "currency": "USD",
@@ -50,7 +50,7 @@
       "id": "bogota-003",
       "title": "Bogotá Gastronomic Adventure",
       "price": 389,
-      "currency": "USD", 
+      "currency": "USD",
       "duration": "3 days / 2 nights",
       "description": "Taste your way through Bogotá's incredible culinary scene, from street food to high-end restaurants. Experience the diversity of Colombian cuisine in the nation's gastronomic capital.",
       "highlights": [
@@ -74,7 +74,7 @@
       "title": "Adventure & Nature Escape",
       "price": 519,
       "currency": "USD",
-      "duration": "4 days / 3 nights", 
+      "duration": "4 days / 3 nights",
       "description": "Combine urban exploration with natural adventures around Bogotá. Perfect for active travelers who want to experience both city culture and Colombia's stunning landscapes.",
       "highlights": [
         "Zipaquirá Salt Cathedral day trip",

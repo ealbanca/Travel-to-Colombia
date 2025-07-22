@@ -21,10 +21,10 @@
         "Transportation",
         "All entrance fees"
       ],
-      "image": "medellin.webp"
+      "image": "medellin-metro.webp"
     },
     {
-      "id": "medellin-002", 
+      "id": "medellin-002",
       "title": "Innovation & Culture Experience",
       "price": 479,
       "currency": "USD",
@@ -44,13 +44,13 @@
         "Professional guide",
         "Airport transfers"
       ],
-      "image": "medellin.webp"
+      "image": "medellin-art.webp"
     },
     {
       "id": "medellin-003",
       "title": "Coffee Culture Adventure",
       "price": 429,
-      "currency": "USD", 
+      "currency": "USD",
       "duration": "3 days / 2 nights",
       "description": "Immerse yourself in Colombia's famous coffee culture with visits to local fincas, coffee tastings, and traditional preparation methods. Learn about the coffee process from bean to cup.",
       "highlights": [
@@ -67,14 +67,14 @@
         "Transportation to coffee farms",
         "Coffee samples to take home"
       ],
-      "image": "medellin.webp"
+      "image": "medellin-coffe.webp"
     },
     {
       "id": "medellin-004",
       "title": "Outdoor Adventure Escape",
       "price": 559,
       "currency": "USD",
-      "duration": "4 days / 3 nights", 
+      "duration": "4 days / 3 nights",
       "description": "Take advantage of Medellín's perfect climate and stunning landscapes. Perfect for adventure seekers who want to combine city exploration with outdoor activities in the Andes.",
       "highlights": [
         "Paragliding over the Aburrá Valley",
@@ -90,7 +90,7 @@
         "Equipment rental",
         "Packed lunches for excursions"
       ],
-      "image": "medellin.webp"
+      "image": "medellin-paragliding.webp"
     },
     {
       "id": "medellin-005",
@@ -113,7 +113,7 @@
         "Exclusive access and guides",
         "24/7 concierge service"
       ],
-      "image": "medellin.webp"
+      "image": "medellin-hotel.webp"
     },
     {
       "id": "medellin-006",
@@ -136,7 +136,7 @@
         "All entrance fees",
         "Kid-friendly meal options"
       ],
-      "image": "medellin.webp"
+      "image": "medellin-food.webp"
     }
   ]
 }
