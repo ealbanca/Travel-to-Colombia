@@ -5,7 +5,7 @@
     --color-primary: #006994;
     --color-secondary: #40E0D0;
     --color-accent: #FFD700;
-    --color-background: #F5FFFA;
+    --color-background: #ffffff;
     --color-text: #2C3E50;
 
     /* Font Sizes */
@@ -98,6 +98,35 @@ body {
 
 .navigation a:hover {
     color: var(--color-secondary);
+}
+
+/* Cart Icon Styling */
+.navigation a img {
+    width: 24px;
+    height: 24px;
+    vertical-align: middle;
+    filter: brightness(0) invert(1);
+    /* Makes the icon white */
+    transition: all 0.3s ease;
+}
+
+.navigation a:hover img {
+    filter: brightness(0) invert(1) sepia(1) hue-rotate(180deg) saturate(5);
+    /* Changes to secondary color on hover */
+    transform: scale(1.1);
+}
+
+/* SVG Cart Icon */
+.cart-icon {
+    width: 20px;
+    height: 20px;
+    vertical-align: middle;
+    margin-right: 0.5rem;
+    transition: transform 0.3s ease;
+}
+
+.navigation a:hover .cart-icon {
+    transform: scale(1.1);
 }
 
 #menu {
@@ -302,6 +331,99 @@ main {
     font-size: var(--font-size-large);
 }
 
+.packages {
+    padding: 4rem 1rem;
+    background-color: var(--color-background);
+    text-align: center;
+}
+
+.packages h2 {
+    font-size: 2.5rem;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+    font-family: var(--font-healine);
+}
+
+.packages-subtitle {
+    font-size: 1.2rem;
+    color: var(--color-text);
+    margin-bottom: 3rem;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.packages-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+    list-style: none;
+    padding: 0;
+}
+
+.packages-grid li {
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    border: 1px solid rgba(0, 105, 148, 0.1);
+}
+
+.packages-grid li:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.packages-grid a {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    height: 100%;
+}
+
+.packages-grid img {
+    width: 100%;
+    height: 250px;
+    object-fit: cover;
+    object-position: center;
+    transition: transform 0.3s ease;
+}
+
+.packages-grid li:hover img {
+    transform: scale(1.05);
+}
+
+.packages-grid h2 {
+    font-size: 1.8rem;
+    color: var(--color-primary);
+    margin: 1.5rem 0;
+    padding: 0 1rem;
+    font-family: var(--font-healine);
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.package-description {
+    padding: 0 1.5rem 1.5rem;
+    font-size: 1rem;
+    color: var(--color-text);
+    line-height: 1.6;
+}
+
+.package-price {
+    background-color: var(--color-accent);
+    color: var(--color-primary);
+    padding: 1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-align: center;
+    margin-top: auto;
+}
+
 /* Footer Styles */
 #main-footer {
     background-color: var(--color-primary);
@@ -425,6 +547,20 @@ main {
     .temperature-info,
     .temp-range {
         text-align: center;
+    }
+
+    /* Packages responsive */
+    .packages-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .packages {
+        padding: 2rem 1rem;
+    }
+
+    .packages h2 {
+        font-size: 2rem;
     }
 }
 
