@@ -38,7 +38,8 @@ export async function loadHeaderFooter() {
     const isInSubfolder = window.location.pathname.includes('/package_pages/') ||
         window.location.pathname.includes('/package_list/') ||
         window.location.pathname.includes('/cart/') ||
-        window.location.pathname.includes('/checkout/');
+        window.location.pathname.includes('/checkout/') ||
+        window.location.pathname.includes('/contact/');
 
     const basePath = isInSubfolder ? '../' : './';
 
