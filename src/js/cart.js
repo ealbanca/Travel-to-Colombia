@@ -305,8 +305,8 @@ window.proceedToCheckout = function () {
         return;
     }
 
-    // For now, just show an alert. In a real app, this would redirect to checkout
-    alert('Proceeding to checkout... This feature will be implemented in the next phase.');
+    // Redirect to checkout page
+    window.location.href = '../checkout/index.html';
 };
 
 // Initialize cart count when page loads
