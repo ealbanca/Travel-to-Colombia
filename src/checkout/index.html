@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="author" content="Hared Albancando Robles">
+    <meta name="description"
+        content="The Travel to Colombia website is a tourism platform that provides packages for exploring Colombia's diverse culture, stunning landscapes, and rich history.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-site-url.netlify.app/package_list/">
+    <meta property="og:title" content="Travel Packages - Travel to Colombia">
+    <meta property="og:description"
+        content="Explore our exclusive travel packages for Colombia including Bogotá, Medellín, and Cartagena destinations.">
+    <meta property="og:image" content="../public/images/hero-main.webp">
+
+    <title>Checkout - Travel to Colombia</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="icon" href="../public/images/favicon.ico" type="image/x-icon">
+</head>
+
+<body>
+    <header class="divider" id="main-header"></header>
+    <main>
+        <div class="checkout-card">
+            <h1>Review & Place your Order</h1>
+            <form name="checkout">
+                <fieldset>
+                    <legend>Shipping</legend>
+                    <div class="form-row">
+                        <label for="fname">First Name</label>
+                        <input name="fname" required />
+                        <label for="lname">Last Name</label>
+                        <input name="lname" required />
+                    </div>
+                    <div class="form-row">
+                        <label for="street">Street</label>
+                        <input name="street" required />
+                    </div>
+                    <div class="form-row">
+                        <label for="city">City</label>
+                        <input name="city" required />
+                        <label for="state">State</label>
+                        <input name="state" required />
+                        <label for="zip">Zip</label>
+                        <input name="zip" id="zip" required />
+                    </div>
+                </fieldset>
+                <fieldset>
+                    <legend>Payment</legend>
+                    <div class="form-row">
+                        <label for="cardNumber">Card number</label>
+                        <input name="cardNumber" required />
+                    </div>
+                    <div class="form-row">
+                        <label for="expiration">Expiration</label>
+                        <input name="expiration" required />
+                        <label for="code">Security Code</label>
+                        <input name="code" required />
+                    </div>
+                </fieldset>
+                <fieldset class="order-summary">
+                    <legend>Order Summary</legend>
+                    <ul>
+                        <li>
+                            <label for="cartTotal">Item Subtotal(<span id="num-items"></span>)</label>
+                            <p name="cartTotal" id="cartTotal"></p>
+                        </li>
+                        <li>
+                            <label for="shipping">Shipping Estimate</label>
+                            <p id="shipping"></p>
+                        </li>
+                        <li>
+                            <label for="tax">Tax</label>
+                            <p id="tax"></p>
+                        </li>
+                        <li>
+                            <label for="orderTotal"><b>Order Total</b></label>
+                            <p id="orderTotal"></p>
+                        </li>
+                    </ul>
+                </fieldset>
+                <button id="checkoutSubmit" type="submit">Checkout</button>
+            </form>
+        </div>
+    </main>
+    <footer id="main-footer">
+    </footer>
+    <script src="../js/cart.js"></script>
+    <script src="../js/dropdown.js"></script>
+</body>
+
+</html>
