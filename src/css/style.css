@@ -45,7 +45,6 @@ body {
     align-items: center;
     gap: 0.5rem;
     flex-shrink: 0;
-    /* Prevent logo from shrinking */
 }
 
 .logo img {
@@ -53,35 +52,19 @@ body {
     width: auto;
 }
 
-.logo a {
-    text-decoration: none;
-    color: white;
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-.highlight {
-    color: var(--color-accent);
-}
-
 .navigation {
     flex: 1;
-    /* Take up remaining space */
     display: flex;
     justify-content: center;
-    /* Center the navigation */
     margin-left: 2rem;
-    /* Add some space from logo */
 }
 
 .navigation ul {
     display: flex;
     list-style: none;
     gap: 3rem;
-    /* Increase gap between menu items */
     width: 100%;
     justify-content: space-around;
-    /* Distribute evenly */
 }
 
 .navigation a {
@@ -121,8 +104,8 @@ body {
     height: 24px;
     vertical-align: middle;
     filter: brightness(0) invert(1);
-    /* Makes the icon white */
     transition: all 0.3s ease;
+    /* Makes the icon white */
 }
 
 .navigation a:hover img {
@@ -326,7 +309,6 @@ main {
     position: relative;
     width: 100%;
     height: calc(100vh - 170px);
-    /* Full viewport height minus header height */
     max-height: 700px;
     overflow: hidden;
     display: flex;
