@@ -47,42 +47,57 @@ class Checkout {
     // Process checkout
     processCheckout(formData) {
 
-        // Simulate order processing
-        const orderData = {
-            id: this.generateOrderId(),
-            customer: {
-                firstName: formData.fname,
-                lastName: formData.lname,
-                address: {
-                    street: formData.street,
-                    city: formData.city,
-                    state: formData.state,
-                    zip: formData.zip
-                }
-            },
-            items: this.cart.getCartItems(),
-            totals: {
-                subtotal: this.cart.getCartTotal(),
-                shipping: this.calculateShipping(this.cart.getCartTotal()),
-                tax: this.calculateTax(this.cart.getCartTotal()),
-                total: this.calculateTotal(
-                    this.cart.getCartTotal(),
-                    this.calculateShipping(this.cart.getCartTotal()),
-                    this.calculateTax(this.cart.getCartTotal())
-                )
-            },
-            orderDate: new Date().toISOString()
+        // Prepare customer information for order
+        const customerInfo = {
+            firstName: formData.fname,
+            lastName: formData.lname,
+            email: formData.email || 'guest@example.com',
+            phone: formData.phone || '',
+            address: {
+                street: formData.street,
+                city: formData.city,
+                state: formData.state,
+                zip: formData.zip
+            }
         };
 
-        // Save order to localStorage (in a real app, this would be sent to a server)
-        this.saveOrder(orderData);
+        // Create order using the order management system
+        if (typeof createOrderFromCart === 'function') {
+            const newOrder = createOrderFromCart(customerInfo);
+            if (newOrder) {
+                // Show success message and redirect
+                this.showSuccessMessage(newOrder);
+                return true;
+            }
+        } else {
+            // Fallback to old method if order system not available
+            const orderData = {
+                id: this.generateOrderId(),
+                customer: customerInfo,
+                items: this.cart.getCartItems(),
+                totals: {
+                    subtotal: this.cart.getCartTotal(),
+                    shipping: this.calculateShipping(this.cart.getCartTotal()),
+                    tax: this.calculateTax(this.cart.getCartTotal()),
+                    total: this.calculateTotal(
+                        this.cart.getCartTotal(),
+                        this.calculateShipping(this.cart.getCartTotal()),
+                        this.calculateTax(this.cart.getCartTotal())
+                    )
+                },
+                orderDate: new Date().toISOString()
+            };
 
-        // Clear cart
-        this.cart.clearCart();
+            // Save order to localStorage
+            this.saveOrder(orderData);
 
-        // Show success message and redirect
-        this.showSuccessMessage(orderData);
-        return true;
+            // Clear cart
+            this.cart.clearCart();
+
+            // Show success message and redirect
+            this.showSuccessMessage(orderData);
+            return true;
+        }
     }
 
     // Generate a unique order ID

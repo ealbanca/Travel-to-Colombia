@@ -305,8 +305,8 @@ window.proceedToCheckout = function () {
         return;
     }
 
-    // Check if user is already logged in
-    const token = localStorage.getItem('authToken');
+    // Check if user is already logged in using the correct token key
+    const token = localStorage.getItem('so_token');
     if (token) {
         // User is logged in, proceed directly to checkout
         window.location.href = '../checkout/index.html';
