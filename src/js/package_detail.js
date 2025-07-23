@@ -1,8 +1,6 @@
 import { getPackageById } from "./externalServices.mjs";
 import { getParam, loadHeaderFooter } from "./utils.mjs";
 
-console.log('=== Package Detail Script Loading ===');
-
 // Load header and footer
 loadHeaderFooter().then(() => {
     console.log('Header and footer loaded successfully');
@@ -14,21 +12,13 @@ loadHeaderFooter().then(() => {
 const packageId = getParam("package");
 const city = getParam("city");
 
-console.log('Package Detail Page Loaded');
-console.log('Package ID:', packageId);
-console.log('City:', city);
-console.log('Current URL:', window.location.href);
-
 // Package detail template
 function packageDetailTemplate(travelPackage) {
     // Detect if we're in a subdirectory and adjust image path accordingly
-    const isInSubfolder = window.location.pathname.includes('/package_pages/') || 
-                         window.location.pathname.includes('/package_list/');
+    const isInSubfolder = window.location.pathname.includes('/package_pages/') ||
+        window.location.pathname.includes('/package_list/');
     const imagePath = isInSubfolder ? `../public/images/${travelPackage.image}` : `./public/images/${travelPackage.image}`;
-    
-    console.log('Template - image path:', imagePath);
-    console.log('Template - travel package:', travelPackage);
-    
+
     return `
         <div class="package-detail-hero">
             <img src="${imagePath}" alt="${travelPackage.title}" class="package-detail-image">
@@ -90,10 +80,8 @@ async function loadPackageDetail() {
             return;
         }
 
-        console.log('Loading package:', packageId, 'from city:', city);
-        
         const travelPackage = await getPackageById(city, packageId);
-        
+
         if (!travelPackage) {
             document.querySelector('.package-detail-container').innerHTML = `
                 <div class="error-message">
@@ -107,11 +95,11 @@ async function loadPackageDetail() {
 
         // Update page title
         document.title = `${travelPackage.title} - Travel to Colombia`;
-        
+
         // Render package details
         const container = document.querySelector('.package-detail-container');
         container.innerHTML = packageDetailTemplate(travelPackage);
-        
+
     } catch (error) {
         console.error('Error loading package details:', error);
         document.querySelector('.package-detail-container').innerHTML = `
@@ -125,10 +113,8 @@ async function loadPackageDetail() {
 }
 
 // Function to handle booking (placeholder)
-window.bookPackage = function(packageId) {
+window.bookPackage = function (packageId) {
     alert(`Booking package ${packageId}! This would redirect to a booking form.`);
-    // Here you could redirect to a booking page:
-    // window.location.href = `../booking/index.html?package=${packageId}&city=${city}`;
 };
 
 // Load package details when page loads

@@ -11,10 +11,9 @@ function packageCardTemplate(travelPackage) {
     const currentCity = urlParams.get('city');
     
     const detailUrl = `../package_pages/index.html?package=${travelPackage.id}&city=${currentCity}`;
-    console.log('Creating package card with link:', detailUrl);
     
     return `<li class="package-card">
-    <a href="${detailUrl}" onclick="console.log('Clicking package: ${travelPackage.id}')">
+    <a href="${detailUrl}">
     <img
       src="${imagePath}"
       alt="${travelPackage.title}"
@@ -40,8 +39,6 @@ export default async function packageList(selector, city) {
     const el = document.querySelector(selector);
     // get the list of packages
     const packages = await getTravelPackages(city);
-    console.log('Loaded packages for', city, ':', packages);
-    console.log('Number of packages:', packages ? packages.length : 0);
     
     // render out the package list to the element
     renderListWithTemplate(packageCardTemplate, el, packages);
