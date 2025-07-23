@@ -16,6 +16,7 @@ export async function renderWithTemplate(
     }
 }
 
+// Function to load a templates (header and footer)
 function loadTemplate(path) {
     return async function () {
         const res = await fetch(path);
@@ -29,6 +30,7 @@ function loadTemplate(path) {
     };
 }
 
+// Function to load header and footer templates
 export async function loadHeaderFooter() {
     console.log('loadHeaderFooter - Current path:', window.location.pathname);
 
@@ -40,27 +42,23 @@ export async function loadHeaderFooter() {
 
     const basePath = isInSubfolder ? '../' : './';
 
-    // Use relative paths that work from the HTML file location
+    // Relative paths that work from the HTML file location
     const headerTemplateFn = loadTemplate(`${basePath}public/partials/header.html`);
     const footerTemplateFn = loadTemplate(`${basePath}public/partials/footer.html`);
     const headerEl = document.querySelector("#main-header");
     const footerEl = document.querySelector("#main-footer");
 
-    // Load templates (they already use absolute paths, so no path fixing needed)
+    // Load templates 
     const headerTemplate = await headerTemplateFn();
     const footerTemplate = await footerTemplateFn();
 
     // Insert the templates using absolute paths from root
     if (headerEl && headerTemplate) {
         headerEl.innerHTML = headerTemplate;
-    } else {
-        console.error('Header element not found or template failed to load');
     }
 
     if (footerEl && footerTemplate) {
         footerEl.innerHTML = footerTemplate;
-    } else {
-        console.error('Footer element not found or template failed to load');
     }
 
     // Set up footer copyright information
