@@ -322,3 +322,14 @@ document.addEventListener('DOMContentLoaded', function () {
 // Make functions globally accessible
 window.addPackageToCart = addPackageToCart;
 window.renderCartPage = renderCartPage;
+window.cart = cart;
+
+// Initialize cart count when DOM is loaded
+document.addEventListener('DOMContentLoaded', () => {
+    cart.updateCartCount();
+});
+
+// Also initialize when header is loaded (for pages that load header dynamically)
+document.addEventListener('headerLoaded', () => {
+    cart.updateCartCount();
+});

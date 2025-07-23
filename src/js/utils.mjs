@@ -56,6 +56,8 @@ export async function loadHeaderFooter() {
     // Insert the templates using absolute paths from root
     if (headerEl && headerTemplate) {
         headerEl.innerHTML = headerTemplate;
+        // Dispatch event to notify that header is loaded
+        document.dispatchEvent(new CustomEvent('headerLoaded'));
     }
 
     if (footerEl && footerTemplate) {
@@ -64,6 +66,19 @@ export async function loadHeaderFooter() {
 
     // Set up footer copyright information
     setupFooter();
+
+    // Initialize cart count display after header is loaded
+    initializeCartCount();
+}
+
+// Function to initialize cart count display
+function initializeCartCount() {
+    // Wait a bit for the header to be fully rendered and cart.js to be loaded
+    setTimeout(() => {
+        if (typeof cart !== 'undefined' && cart.updateCartCount) {
+            cart.updateCartCount();
+        }
+    }, 100);
 }
 
 // Function to set up footer copyright information
