@@ -305,8 +305,16 @@ window.proceedToCheckout = function () {
         return;
     }
 
-    // Redirect to checkout page
-    window.location.href = '../checkout/index.html';
+    // Check if user is already logged in
+    const token = localStorage.getItem('authToken');
+    if (token) {
+        // User is logged in, proceed directly to checkout
+        window.location.href = '../checkout/index.html';
+        return;
+    }
+    
+    // User is not logged in, show authentication choice modal
+    showCheckoutAuthModal();
 };
 
 // Initialize cart count when page loads
@@ -338,3 +346,76 @@ document.addEventListener('DOMContentLoaded', () => {
 document.addEventListener('headerLoaded', () => {
     cart.updateCartCount();
 });
+
+// Checkout Authentication Modal Functions
+function showCheckoutAuthModal() {
+    const modal = document.getElementById('checkoutAuthModal');
+    if (modal) {
+        modal.style.display = 'block';
+        document.body.style.overflow = 'hidden'; // Prevent background scrolling
+        
+        // Initialize modal event listeners
+        initializeCheckoutAuthModal();
+    }
+}
+
+function hideCheckoutAuthModal() {
+    const modal = document.getElementById('checkoutAuthModal');
+    if (modal) {
+        modal.style.display = 'none';
+        document.body.style.overflow = 'auto'; // Restore background scrolling
+    }
+}
+
+function initializeCheckoutAuthModal() {
+    // Close button functionality
+    const closeBtn = document.getElementById('checkoutModalClose');
+    if (closeBtn) {
+        closeBtn.onclick = hideCheckoutAuthModal;
+    }
+    
+    // Continue as Guest button
+    const guestBtn = document.getElementById('continueAsGuest');
+    if (guestBtn) {
+        guestBtn.onclick = function() {
+            hideCheckoutAuthModal();
+            // Proceed to checkout as guest
+            window.location.href = '../checkout/index.html';
+        };
+    }
+    
+    // Login button
+    const loginBtn = document.getElementById('loginToCheckout');
+    if (loginBtn) {
+        loginBtn.onclick = function() {
+            hideCheckoutAuthModal();
+            // Import and show login modal from utils.mjs
+            if (typeof openLoginModal === 'function') {
+                openLoginModal();
+            } else {
+                // Fallback: import the function dynamically
+                import('./utils.mjs').then(module => {
+                    module.openLoginModal();
+                }).catch(error => {
+                    console.error('Error loading login modal:', error);
+                    // Fallback to redirect to login page
+                    window.location.href = '../login/login.html';
+                });
+            }
+        };
+    }
+    
+    // Close modal when clicking outside
+    const modal = document.getElementById('checkoutAuthModal');
+    if (modal) {
+        modal.onclick = function(event) {
+            if (event.target === modal) {
+                hideCheckoutAuthModal();
+            }
+        };
+    }
+}
+
+// Make functions globally accessible
+window.showCheckoutAuthModal = showCheckoutAuthModal;
+window.hideCheckoutAuthModal = hideCheckoutAuthModal;

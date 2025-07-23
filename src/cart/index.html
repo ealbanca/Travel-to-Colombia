@@ -31,7 +31,35 @@
         </div>
     </main>
     <footer id="main-footer"></footer>
+
+    <!-- Checkout Authentication Modal -->
+    <div id="checkoutAuthModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close" id="checkoutModalClose">&times;</span>
+            
+            <div class="simple-auth-content">
+                <h2>Choose Your Checkout Option</h2>
+                <p>How would you like to proceed?</p>
+                
+                <div class="simple-auth-buttons">
+                    <button class="simple-btn guest-btn" id="continueAsGuest">
+                        Continue as Guest
+                    </button>
+                    <button class="simple-btn login-btn" id="loginToCheckout">
+                        Log In
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script src="../js/cart.js"></script>
+    <script src="../js/main.js"></script>
+    <script type="module">
+        // Import the openLoginModal function and make it globally available
+        import { openLoginModal } from '../js/utils.mjs';
+        window.openLoginModal = openLoginModal;
+    </script>
     <script src="../js/dropdown.js"></script>
 </body>
 
