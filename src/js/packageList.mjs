@@ -5,13 +5,13 @@ function packageCardTemplate(travelPackage) {
     // Detect if we're in a subdirectory and adjust image path accordingly
     const isInSubfolder = window.location.pathname.includes('/package_list/');
     const imagePath = isInSubfolder ? `../public/images/${travelPackage.image}` : `./public/images/${travelPackage.image}`;
-    
+
     // Get the current city from URL parameters for the detail page link
     const urlParams = new URLSearchParams(window.location.search);
     const currentCity = urlParams.get('city');
-    
+
     const detailUrl = `../package_pages/index.html?package=${travelPackage.id}&city=${currentCity}`;
-    
+
     return `<li class="package-card">
     <a href="${detailUrl}">
     <img
@@ -39,8 +39,11 @@ export default async function packageList(selector, city) {
     const el = document.querySelector(selector);
     // get the list of packages
     const packages = await getTravelPackages(city);
-    
+
     // render out the package list to the element
     renderListWithTemplate(packageCardTemplate, el, packages);
     document.querySelector(".title").innerHTML = `${city.charAt(0).toUpperCase() + city.slice(1)} Travel Packages`;
+
+    // Update the page title with the city name
+    document.title = `${city.charAt(0).toUpperCase() + city.slice(1)} Travel Packages - Travel to Colombia`;
 }
