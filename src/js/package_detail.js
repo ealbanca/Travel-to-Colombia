@@ -112,9 +112,23 @@ async function loadPackageDetail() {
     }
 }
 
-// Function to handle booking (placeholder)
-window.bookPackage = function (packageId) {
-    alert(`Booking package ${packageId}! This would redirect to a booking form.`);
+// Function to handle booking - add package to cart
+window.bookPackage = async function (packageId) {
+    try {
+        const travelPackage = await getPackageById(city, packageId);
+        if (travelPackage) {
+            const success = window.addPackageToCart(travelPackage, city);
+            if (success) {
+                // Optionally redirect to cart page or show success message
+                // window.location.href = '../cart/index.html';
+            }
+        } else {
+            alert('Error: Package not found. Please try again.');
+        }
+    } catch (error) {
+        console.error('Error adding package to cart:', error);
+        alert('Error adding package to cart. Please try again.');
+    }
 };
 
 // Load package details when page loads
