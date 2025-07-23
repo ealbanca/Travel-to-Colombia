@@ -88,6 +88,11 @@ class Cart {
         const cartLinks = document.querySelectorAll('a[href*="cart"]');
 
         cartLinks.forEach(cartLink => {
+            // Skip links that are inside dropdown menus
+            if (cartLink.closest('.dropdown-menu')) {
+                return;
+            }
+
             // Remove existing badge if any
             const existingBadge = cartLink.querySelector('.cart-badge');
             if (existingBadge) {
