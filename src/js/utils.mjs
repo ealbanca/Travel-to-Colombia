@@ -53,15 +53,17 @@ export async function loadHeaderFooter() {
     const headerTemplate = await headerTemplateFn();
     const footerTemplate = await footerTemplateFn();
 
-    // Insert the templates using absolute paths from root
+    // Insert the templates with dynamic path replacement
     if (headerEl && headerTemplate) {
-        headerEl.innerHTML = headerTemplate;
+        const processedHeaderTemplate = headerTemplate.replace(/\{\{basePath\}\}/g, basePath);
+        headerEl.innerHTML = processedHeaderTemplate;
         // Dispatch event to notify that header is loaded
         document.dispatchEvent(new CustomEvent('headerLoaded'));
     }
 
     if (footerEl && footerTemplate) {
-        footerEl.innerHTML = footerTemplate;
+        const processedFooterTemplate = footerTemplate.replace(/\{\{basePath\}\}/g, basePath);
+        footerEl.innerHTML = processedFooterTemplate;
     }
 
     // Set up footer copyright information

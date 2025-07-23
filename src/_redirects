@@ -1,0 +1,14 @@
+# Netlify redirects file
+# Handle SPA routing and direct access to pages
+
+# Specific page redirects
+/package_list/*  /package_list/index.html  200
+/contact/*       /contact/index.html       200  
+/cart/*          /cart/index.html          200
+/package_pages/* /package_pages/index.html 200
+
+# Handle direct access without trailing slash
+/package_list    /package_list/index.html  200
+/contact         /contact/index.html       200
+/cart            /cart/index.html          200
+/package_pages   /package_pages/index.html 200

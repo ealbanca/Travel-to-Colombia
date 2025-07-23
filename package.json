@@ -1,0 +1,18 @@
+{
+  "name": "travel-to-colombia",
+  "version": "1.0.0",
+  "description": "Travel to Colombia tourism website",
+  "main": "src/index.html",
+  "scripts": {
+    "start": "npx http-server src -p 3000",
+    "dev": "npx http-server src -p 3000 -o",
+    "build": "echo 'No build process needed for static site'",
+    "deploy": "netlify deploy --prod --dir=src"
+  },
+  "keywords": ["travel", "colombia", "tourism", "packages"],
+  "author": "Hared Albancando Robles",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}

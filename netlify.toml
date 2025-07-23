@@ -1,0 +1,55 @@
+[build]
+  # Directory to publish (deploy)
+  publish = "src"
+  
+  # Command to run before deployment (if needed)
+  # command = "npm run build"
+
+[build.environment]
+  # Environment variables if needed
+  NODE_VERSION = "18"
+
+# Redirect rules for SPA routing (if needed)
+[[redirects]]
+  from = "/package_list/*"
+  to = "/package_list/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/contact/*"
+  to = "/contact/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/cart/*"
+  to = "/cart/index.html"
+  status = 200
+
+[[redirects]]
+  from = "/package_pages/*"
+  to = "/package_pages/index.html"
+  status = 200
+
+# Default headers for better performance
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+
+# Cache static assets
+[[headers]]
+  for = "/public/images/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000"
