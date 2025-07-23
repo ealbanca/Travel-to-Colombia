@@ -22,6 +22,9 @@ function loadTemplate(path) {
         if (res.ok) {
             const html = await res.text();
             return html;
+        } else {
+            console.error(`Failed to load template: ${path}`, res.status, res.statusText);
+            return '';
         }
     };
 }
@@ -29,9 +32,17 @@ function loadTemplate(path) {
 export async function loadHeaderFooter() {
     console.log('loadHeaderFooter - Current path:', window.location.pathname);
 
-    // Use absolute paths that work from any location
-    const headerTemplateFn = loadTemplate('/public/partials/header.html');
-    const footerTemplateFn = loadTemplate('/public/partials/footer.html');
+    // Detect if we're in a subdirectory and adjust paths accordingly
+    const isInSubfolder = window.location.pathname.includes('/package_pages/') ||
+        window.location.pathname.includes('/package_list/') ||
+        window.location.pathname.includes('/cart/') ||
+        window.location.pathname.includes('/checkout/');
+
+    const basePath = isInSubfolder ? '../' : './';
+
+    // Use relative paths that work from the HTML file location
+    const headerTemplateFn = loadTemplate(`${basePath}public/partials/header.html`);
+    const footerTemplateFn = loadTemplate(`${basePath}public/partials/footer.html`);
     const headerEl = document.querySelector("#main-header");
     const footerEl = document.querySelector("#main-footer");
 
@@ -39,9 +50,18 @@ export async function loadHeaderFooter() {
     const headerTemplate = await headerTemplateFn();
     const footerTemplate = await footerTemplateFn();
 
-    // Insert the templates directly
-    headerEl.innerHTML = headerTemplate;
-    footerEl.innerHTML = footerTemplate;
+    // Insert the templates using absolute paths from root
+    if (headerEl && headerTemplate) {
+        headerEl.innerHTML = headerTemplate;
+    } else {
+        console.error('Header element not found or template failed to load');
+    }
+
+    if (footerEl && footerTemplate) {
+        footerEl.innerHTML = footerTemplate;
+    } else {
+        console.error('Footer element not found or template failed to load');
+    }
 
     // Set up footer copyright information
     setupFooter();
