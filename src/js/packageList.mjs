@@ -23,7 +23,6 @@ function packageCardTemplate(travelPackage) {
         <p class="package__duration">${travelPackage.duration}</p>
         <p class="package__description">${travelPackage.description}</p>
         <div class="package__highlights">
-            <h4>Highlights:</h4>
             <ul>
                 ${travelPackage.highlights.slice(0, 3).map(highlight => `<li>${highlight}</li>`).join('')}
             </ul>
