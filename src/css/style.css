@@ -789,3 +789,238 @@ main {
         padding: 2.5rem;
     }
 }
+
+/* Package Detail Page Styles */
+.package-detail {
+    min-height: calc(100vh - 170px);
+    background-color: var(--color-background);
+}
+
+.package-detail-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    background: white;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    border-radius: 15px;
+    overflow: hidden;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+}
+
+.package-detail-hero {
+    position: relative;
+    height: 400px;
+    overflow: hidden;
+}
+
+.package-detail-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.package-detail-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+    color: white;
+    padding: 3rem 2rem 2rem;
+}
+
+.package-detail-title {
+    font-size: 3rem;
+    font-family: var(--font-healine);
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7);
+    color: var(--color-accent);
+}
+
+.package-detail-price {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--color-secondary);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+}
+
+.package-detail-content {
+    padding: 3rem 2rem;
+}
+
+.package-detail-duration {
+    background-color: rgba(0, 105, 148, 0.1);
+    padding: 1rem 1.5rem;
+    border-radius: 8px;
+    margin-bottom: 2rem;
+    border-left: 4px solid var(--color-primary);
+    font-size: 1.1rem;
+    color: var(--color-primary);
+}
+
+.package-detail-description h2 {
+    font-size: 2rem;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+    font-family: var(--font-healine);
+}
+
+.package-detail-description p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: var(--color-text);
+    margin-bottom: 2rem;
+}
+
+.package-detail-highlights,
+.package-detail-includes {
+    margin-bottom: 2rem;
+}
+
+.package-detail-highlights h3,
+.package-detail-includes h3 {
+    font-size: 1.5rem;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+    font-family: var(--font-healine);
+}
+
+.package-detail-highlights ul,
+.package-detail-includes ul {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 0.8rem;
+}
+
+.package-detail-highlights li,
+.package-detail-includes li {
+    padding: 0.8rem 1rem;
+    background-color: rgba(64, 224, 208, 0.1);
+    border-radius: 8px;
+    position: relative;
+    padding-left: 2.5rem;
+    color: var(--color-text);
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.package-detail-highlights li::before,
+.package-detail-includes li::before {
+    content: "✓";
+    position: absolute;
+    left: 1rem;
+    color: var(--color-secondary);
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.package-detail-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 2px solid rgba(0, 105, 148, 0.1);
+}
+
+.btn-primary,
+.btn-secondary {
+    padding: 1rem 2rem;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 1.1rem;
+    transition: all 0.3s ease;
+    border: none;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.btn-primary {
+    background-color: var(--color-accent);
+    color: var(--color-primary);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-secondary);
+    color: white;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-primary);
+    color: white;
+    transform: translateY(-2px);
+}
+
+.error-message {
+    text-align: center;
+    padding: 4rem 2rem;
+    color: var(--color-text);
+}
+
+.error-message h2 {
+    font-size: 2rem;
+    color: var(--color-primary);
+    margin-bottom: 1rem;
+    font-family: var(--font-healine);
+}
+
+.error-message p {
+    font-size: 1.1rem;
+    margin-bottom: 2rem;
+    line-height: 1.6;
+}
+
+/* Package Detail Responsive */
+@media (max-width: 768px) {
+    .package-detail-container {
+        margin: 1rem;
+        border-radius: 10px;
+    }
+
+    .package-detail-hero {
+        height: 300px;
+    }
+
+    .package-detail-title {
+        font-size: 2rem;
+    }
+
+    .package-detail-price {
+        font-size: 1.2rem;
+    }
+
+    .package-detail-content {
+        padding: 2rem 1.5rem;
+    }
+
+    .package-detail-actions {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+        text-align: center;
+    }
+
+    .package-detail-highlights ul,
+    .package-detail-includes ul {
+        grid-template-columns: 1fr;
+    }
+}

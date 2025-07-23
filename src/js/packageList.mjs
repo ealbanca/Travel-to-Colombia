@@ -6,8 +6,15 @@ function packageCardTemplate(travelPackage) {
     const isInSubfolder = window.location.pathname.includes('/package_list/');
     const imagePath = isInSubfolder ? `../public/images/${travelPackage.image}` : `./public/images/${travelPackage.image}`;
     
+    // Get the current city from URL parameters for the detail page link
+    const urlParams = new URLSearchParams(window.location.search);
+    const currentCity = urlParams.get('city');
+    
+    const detailUrl = `../package_pages/index.html?package=${travelPackage.id}&city=${currentCity}`;
+    console.log('Creating package card with link:', detailUrl);
+    
     return `<li class="package-card">
-    <a href="/package_details/index.html?package=${travelPackage.id}">
+    <a href="${detailUrl}" onclick="console.log('Clicking package: ${travelPackage.id}')">
     <img
       src="${imagePath}"
       alt="${travelPackage.title}"
@@ -33,7 +40,9 @@ export default async function packageList(selector, city) {
     const el = document.querySelector(selector);
     // get the list of packages
     const packages = await getTravelPackages(city);
-    console.log('Loaded packages:', packages);
+    console.log('Loaded packages for', city, ':', packages);
+    console.log('Number of packages:', packages ? packages.length : 0);
+    
     // render out the package list to the element
     renderListWithTemplate(packageCardTemplate, el, packages);
     document.querySelector(".title").innerHTML = `${city.charAt(0).toUpperCase() + city.slice(1)} Travel Packages`;

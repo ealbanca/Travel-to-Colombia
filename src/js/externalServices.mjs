@@ -12,12 +12,15 @@ function convertToJson(res) {
 export async function getTravelPackages(city) {
     try {
         // Detect if we're in a subdirectory and adjust path accordingly
-        const isInSubfolder = window.location.pathname.includes('/package_list/');
+        const isInSubfolder = window.location.pathname.includes('/package_list/') || 
+                             window.location.pathname.includes('/package_pages/');
         const basePath = isInSubfolder ? '../' : './';
         const jsonPath = `${basePath}public/json/${city.toLowerCase()}-packages.json`;
         
         console.log('Loading packages from:', jsonPath);
+        console.log('Current path:', window.location.pathname);
         console.log('Is in subfolder:', isInSubfolder);
+        console.log('Base path:', basePath);
         
         const response = await fetch(jsonPath);
         console.log('Response status:', response.status);

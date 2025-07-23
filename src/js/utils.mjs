@@ -29,8 +29,13 @@ function loadTemplate(path) {
 
 export async function loadHeaderFooter() {
     // Detect if we're in a subdirectory by checking the current path
-    const isInSubfolder = window.location.pathname.includes('/package_list/');
+    const isInSubfolder = window.location.pathname.includes('/package_list/') || 
+                         window.location.pathname.includes('/package_pages/');
     const basePath = isInSubfolder ? '../' : './';
+    
+    console.log('loadHeaderFooter - Current path:', window.location.pathname);
+    console.log('loadHeaderFooter - Is in subfolder:', isInSubfolder);
+    console.log('loadHeaderFooter - Base path:', basePath);
 
     // header template will still be a function! But one where we have pre-supplied the argument.
     const headerTemplateFn = loadTemplate(`${basePath}public/partials/header.html`);
@@ -49,8 +54,16 @@ export async function loadHeaderFooter() {
             .replace(/href="\.\/index\.html"/g, 'href="../index.html"')
             .replace(/href="\.\/contact\.html"/g, 'href="../contact.html"')
             .replace(/href="\.\/cart\.html"/g, 'href="../cart.html"')
-            .replace(/href="package_list\/index\.html"/g, 'href="./index.html')
-            .replace(/href="package_list\/index\.html\?city=/g, 'href="./index.html?city=')
+            .replace(/href="package_list\/index\.html"/g, function(match) {
+                // If we're in package_pages, go to ../package_list/index.html
+                // If we're in package_list, go to ./index.html
+                return window.location.pathname.includes('/package_pages/') ? 
+                    'href="../package_list/index.html' : 'href="./index.html';
+            })
+            .replace(/href="package_list\/index\.html\?city=/g, function(match) {
+                return window.location.pathname.includes('/package_pages/') ? 
+                    'href="../package_list/index.html?city=' : 'href="./index.html?city=';
+            })
         : headerTemplate;
 
     const fixedFooterTemplate = isInSubfolder ?
