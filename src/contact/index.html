@@ -22,7 +22,27 @@
 <body>
     <header class="divider" id="main-header"></header>
     <main>
+        <form method="get" action="thankyou.html" class="wf1">
+            <h2>Contact Us</h2>
+            <fieldset>
+                <div id="form-message"></div>
+                <label> First Name* <input type="text" id="fname" name="fname" required autofocus></label>
+                <label> Last Name* <input type="text" id="lname" name="lname" required></label>
+                <label> Email address* <input type="email" id="email" name="email" placeholder="example@gmail.com"
+                        required></label>
+                <label> Mobile phone number* <input type="tel" id="phone" name="phone"></label>
+                <label>Comments<textarea name="org-description" id="org-description" rows="6"></textarea></label>
 
+                <input type="hidden" name="timestamp" id="timestamp">
+                <input type="submit" value="Contact me">
+
+            </fieldset>
+        </form>
+
+        <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3976.2150202847884!2d-74.0715103543686!3d4.732674983012915!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e3f85ff0c550703%3A0xe98c9442c4283bbf!2sParque%20La%20Colina%20Shopping%20Mall!5e0!3m2!1sen!2sus!4v1753242632956!5m2!1sen!2sus"
+            width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"></iframe>
     </main>
     <footer id="main-footer"></footer>
     <script type="module" src="../js/main.js"></script>
