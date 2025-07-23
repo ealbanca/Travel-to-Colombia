@@ -35,7 +35,6 @@ function packageDetailTemplate(travelPackage) {
                 </div>
                 
                 <div class="package-detail-description">
-                    <h2>About This Package</h2>
                     <p>${travelPackage.description}</p>
                 </div>
                 
