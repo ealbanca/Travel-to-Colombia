@@ -5,14 +5,22 @@
   "main": "src/index.html",
   "scripts": {
     "start": "npx http-server src -p 3000",
-    "dev": "npx http-server src -p 3000 -o",
-    "build": "echo 'No build process needed for static site'",
-    "deploy": "netlify deploy --prod --dir=src"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "serve": "npx http-server src -p 3000 -o",
+    "deploy": "netlify deploy --prod --dir=dist"
   },
-  "keywords": ["travel", "colombia", "tourism", "packages"],
+  "keywords": [
+    "travel",
+    "colombia",
+    "tourism",
+    "packages"
+  ],
   "author": "Hared Albancando Robles",
   "license": "MIT",
   "devDependencies": {
-    "http-server": "^14.1.1"
+    "http-server": "^14.1.1",
+    "vite": "^5.0.0"
   }
 }
