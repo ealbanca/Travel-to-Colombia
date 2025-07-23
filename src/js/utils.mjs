@@ -75,8 +75,14 @@ export async function loadHeaderFooter() {
     // Initialize cart count display after header is loaded
     initializeCartCount();
     
-    // Ensure auth modal exists on the page
+    // Ensure auth modal exists on the page FIRST
     ensureAuthModal();
+    
+    // Initialize auth state and modal functionality with a delay to ensure DOM is ready
+    setTimeout(() => {
+        console.log('Initializing auth state...');
+        initializeAuthState();
+    }, 200); // Increased delay to ensure everything is loaded
 }
 
 // Function to initialize cart count display
@@ -215,8 +221,10 @@ function initializeAuthState() {
         }
     }
     
-    // Initialize modal functionality if it exists
-    initializeLoginModal();
+    // Initialize modal functionality - ensure this happens after modal exists
+    setTimeout(() => {
+        initializeLoginModal();
+    }, 50);
 }
 
 // Helper function to validate JWT token
@@ -251,6 +259,7 @@ export function openLoginModal() {
 }
 
 export function closeLoginModal() {
+    console.log('Closing login modal...');
     const modal = document.getElementById('authModal');
     if (modal) {
         modal.style.display = 'none';
@@ -260,12 +269,26 @@ export function closeLoginModal() {
         if (loginForm) loginForm.reset();
         if (signupForm) signupForm.reset();
         clearModalAlerts();
+        console.log('Modal closed successfully');
+    } else {
+        console.error('Modal not found when trying to close!');
     }
 }
 
 function initializeLoginModal() {
     const modal = document.getElementById('authModal');
-    if (!modal) return;
+    
+    console.log('Initializing login modal...', modal ? 'Modal found' : 'Modal NOT found');
+    
+    if (!modal) {
+        console.error('Auth modal not found! Creating it now...');
+        ensureAuthModal();
+        // Try again after a short delay
+        setTimeout(() => {
+            initializeLoginModal();
+        }, 100);
+        return;
+    }
     
     const closeBtn = modal.querySelector('.close');
     const authTabs = modal.querySelectorAll('.auth-tab');
@@ -273,9 +296,22 @@ function initializeLoginModal() {
     const loginForm = document.getElementById('loginForm');
     const signupForm = document.getElementById('signupForm');
     
+    console.log('Modal elements found:', {
+        closeBtn: !!closeBtn,
+        authTabs: authTabs.length,
+        authForms: authForms.length,
+        loginForm: !!loginForm,
+        signupForm: !!signupForm
+    });
+    
     // Close modal functionality
     if (closeBtn) {
-        closeBtn.addEventListener('click', closeLoginModal);
+        closeBtn.addEventListener('click', (e) => {
+            console.log('Close button clicked');
+            closeLoginModal();
+        });
+    } else {
+        console.error('Close button not found!');
     }
     
     // Close modal when clicking outside
@@ -286,8 +322,9 @@ function initializeLoginModal() {
     });
     
     // Tab switching functionality
-    authTabs.forEach(tab => {
-        tab.addEventListener('click', () => {
+    authTabs.forEach((tab, index) => {
+        tab.addEventListener('click', (e) => {
+            console.log(`Tab ${index} clicked:`, tab.getAttribute('data-tab'));
             const targetTab = tab.getAttribute('data-tab');
             
             // Remove active class from all tabs and forms
@@ -301,6 +338,9 @@ function initializeLoginModal() {
             const targetForm = document.getElementById(`${targetTab}Form`);
             if (targetForm) {
                 targetForm.classList.add('active');
+                console.log(`Switched to ${targetTab} form`);
+            } else {
+                console.error(`Target form not found: ${targetTab}Form`);
             }
             
             // Clear any existing alerts
@@ -312,10 +352,13 @@ function initializeLoginModal() {
     if (loginForm) {
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            console.log('Login form submitted');
             clearModalAlerts();
             
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
+            
+            console.log('Login attempt with email:', email);
             
             if (!email || !password) {
                 showModalAlert('Please fill in all fields', 'error');
@@ -329,21 +372,27 @@ function initializeLoginModal() {
                 const { login } = await import('./auth.mjs');
                 await login(creds, window.location.pathname);
             } catch (error) {
+                console.error('Login error:', error);
                 showModalAlert(error.message || 'Login failed', 'error');
             }
         });
+    } else {
+        console.error('Login form not found!');
     }
     
     // Signup form submission
     if (signupForm) {
         signupForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            console.log('Signup form submitted');
             clearModalAlerts();
             
             const name = document.getElementById('signupName').value;
             const email = document.getElementById('signupEmail').value;
             const password = document.getElementById('signupPassword').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
+            
+            console.log('Signup attempt with:', { name, email, passwordLength: password.length });
             
             // Validation
             if (!name || !email || !password || !confirmPassword) {
@@ -377,9 +426,12 @@ function initializeLoginModal() {
                 }, 2000);
                 
             } catch (error) {
+                console.error('Signup error:', error);
                 showModalAlert(error.message || 'Signup failed', 'error');
             }
         });
+    } else {
+        console.error('Signup form not found!');
     }
 }
 
