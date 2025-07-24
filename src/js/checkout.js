@@ -1,12 +1,8 @@
 // Checkout functionality
-console.log('Checkout.js file loaded');
-
 class Checkout {
     constructor() {
-        console.log('Checkout constructor called');
         try {
             this.cart = new Cart();
-            console.log('Cart instance created:', this.cart);
             this.shippingRate = 0.10; // 10% shipping rate
             this.taxRate = 0.08; // 8% tax rate
         } catch (error) {
@@ -55,8 +51,7 @@ class Checkout {
 
     // Process checkout
     processCheckout(formData) {
-        console.log('Processing checkout with form data:', formData);
-        console.log('createOrderFromCart function available:', typeof createOrderFromCart);
+        console.log('Processing checkout...');
 
         try {
             // Prepare customer information for order
@@ -73,16 +68,12 @@ class Checkout {
                 }
             };
 
-            console.log('Customer info prepared:', customerInfo);
-
-            // Create order using the order management system
+            // Create order 
             if (typeof createOrderFromCart === 'function') {
-                console.log('Using createOrderFromCart function');
                 try {
                     const newOrder = createOrderFromCart(customerInfo);
-                    console.log('createOrderFromCart returned:', newOrder);
                     if (newOrder) {
-                        console.log('Order created successfully:', newOrder);
+                        console.log('Order created successfully:', newOrder.id);
                         // Show success message and redirect
                         this.showSuccessMessage(newOrder);
                         return true;
@@ -97,20 +88,17 @@ class Checkout {
                     // Fall through to manual order creation
                 }
             }
-            
-            // Fallback to old method if order system not available or failed
-            console.log('createOrderFromCart not available or failed, using fallback');
-            
+
+
             // Check if we have cart items for fallback
             const cartItems = this.cart.getCartItems();
-            console.log('Cart items for fallback:', cartItems);
-            
+
             if (!cartItems || cartItems.length === 0) {
                 console.error('No cart items available for fallback order creation');
                 alert('Your cart appears to be empty. Please add items to your cart and try again.');
                 return false;
             }
-            
+
             const orderData = {
                 id: this.generateOrderId(),
                 customer: customerInfo,
@@ -128,23 +116,18 @@ class Checkout {
                 orderDate: new Date().toISOString()
             };
 
-            console.log('Fallback order data created:', orderData);
-
             // Save order to localStorage
             this.saveOrder(orderData);
-            console.log('Order saved to localStorage');
 
             // Clear cart
             this.cart.clearCart();
-            console.log('Cart cleared');
 
             // Show success message and redirect
             this.showSuccessMessage(orderData);
             return true;
-            
+
         } catch (error) {
             console.error('Error in processCheckout:', error);
-            console.error('Error stack:', error.stack);
             alert(`An error occurred while processing your order: ${error.message}. Please try again.`);
             return false;
         }
@@ -162,40 +145,17 @@ class Checkout {
         localStorage.setItem('travelColombiaOrders', JSON.stringify(orders));
     }
 
-    // Show error messages
-    showErrors(errors) {
-        const errorContainer = document.querySelector('.error-messages') || this.createErrorContainer();
-        errorContainer.innerHTML = `
-            <div class="alert alert-error">
-                <h4>Please correct the following errors:</h4>
-                <ul>
-                    ${errors.map(error => `<li>${error}</li>`).join('')}
-                </ul>
-            </div>
-        `;
-        errorContainer.scrollIntoView({ behavior: 'smooth' });
-    }
-
-    // Create error container if it doesn't exist
-    createErrorContainer() {
-        const container = document.createElement('div');
-        container.className = 'error-messages';
-        const form = document.querySelector('form[name="checkout"]');
-        form.parentNode.insertBefore(container, form);
-        return container;
-    }
-
     // Show success message
     showSuccessMessage(orderData) {
         console.log('showSuccessMessage called with:', orderData);
-        
+
         try {
             if (!orderData || !orderData.id) {
                 console.error('Invalid order data - missing ID:', orderData);
                 alert('Order was created but there was an issue displaying the confirmation. Please check your orders page.');
                 return;
             }
-            
+
             // Handle different order data formats
             let totalAmount;
             if (orderData.totals && typeof orderData.totals.total !== 'undefined') {
@@ -209,17 +169,13 @@ class Checkout {
                 alert('Order was created but there was an issue displaying the total. Please check your orders page.');
                 return;
             }
-            
-            console.log('Order total amount:', totalAmount);
-            
+
             alert(`Order ${orderData.id} placed successfully! Total: $${totalAmount.toFixed(2)}. 
         
 Thank you for choosing Travel to Colombia! You will receive a confirmation email shortly.`);
 
             // Redirect to thank you page with order parameters
-            console.log('Redirecting immediately to thank you page with order ID:', orderData.id);
             const redirectUrl = `../thankyou/thankyou.html?type=order&orderId=${orderData.id}`;
-            console.log('Redirect URL:', redirectUrl);
             window.location.href = redirectUrl;
         } catch (error) {
             console.error('Error in showSuccessMessage:', error);
@@ -227,15 +183,24 @@ Thank you for choosing Travel to Colombia! You will receive a confirmation email
         }
     }
 
+    // Validate form data - reusable method
+    validateFormData(data) {
+        const requiredFields = ['fname', 'lname', 'email', 'street', 'city', 'state', 'zip'];
+        const missingFields = requiredFields.filter(field => !data[field] || data[field].trim() === '');
+
+        if (missingFields.length > 0) {
+            alert('Please fill in all required fields: ' + missingFields.join(', '));
+            return false;
+        }
+        return true;
+    }
+
     // Initialize checkout page
     init() {
-        console.log('Checkout.init() called');
         const cartItems = this.cart.getCartItems();
-        console.log('Cart items found:', cartItems.length);
 
         // Redirect to cart if no items
         if (cartItems.length === 0) {
-            console.log('No cart items, redirecting to cart');
             alert('Your cart is empty. Please add some packages before proceeding to checkout.');
             window.location.href = '../cart/index.html';
             return;
@@ -246,78 +211,25 @@ Thank you for choosing Travel to Colombia! You will receive a confirmation email
 
         // Set up form submission
         const form = document.querySelector('form[name="checkout"]');
-        console.log('Checkout form found:', form);
         if (form) {
-            console.log('Adding submit event listener to form');
             form.addEventListener('submit', (e) => {
                 e.preventDefault();
-                console.log('Form submission prevented, processing checkout...');
 
                 try {
                     const formData = new FormData(form);
                     const data = Object.fromEntries(formData.entries());
-                    console.log('Form data collected:', data);
 
-                    // Check if required fields are filled
-                    const requiredFields = ['fname', 'lname', 'email', 'street', 'city', 'state', 'zip'];
-                    const missingFields = requiredFields.filter(field => !data[field] || data[field].trim() === '');
-                    
-                    if (missingFields.length > 0) {
-                        console.error('Missing required fields:', missingFields);
-                        alert('Please fill in all required fields: ' + missingFields.join(', '));
+                    // Validate form data
+                    if (!this.validateFormData(data)) {
                         return;
                     }
 
-                    console.log('All required fields present, processing checkout...');
                     const result = this.processCheckout(data);
-                    console.log('Checkout process result:', result);
                 } catch (error) {
                     console.error('Error in form submission handler:', error);
                     alert('An error occurred while processing your order. Please try again.');
                 }
             });
-
-            // Also add a direct click handler to the submit button as backup
-            const submitButton = document.getElementById('checkoutSubmit');
-            if (submitButton) {
-                console.log('Adding click event listener to submit button');
-                const self = this; // Store reference to this
-                submitButton.addEventListener('click', (e) => {
-                    console.log('Submit button clicked directly');
-                    console.log('Button type:', submitButton.type);
-                    console.log('Form element:', submitButton.form);
-                    
-                    // If form submission isn't working, let's try manual processing
-                    if (e.defaultPrevented || !form.checkValidity()) {
-                        console.log('Form submission was prevented or form is invalid');
-                        e.preventDefault();
-                        
-                        // Manual validation and processing
-                        try {
-                            const formData = new FormData(form);
-                            const data = Object.fromEntries(formData.entries());
-                            console.log('Manual form data collection:', data);
-
-                            // Check if required fields are filled
-                            const requiredFields = ['fname', 'lname', 'email', 'street', 'city', 'state', 'zip'];
-                            const missingFields = requiredFields.filter(field => !data[field] || data[field].trim() === '');
-                            
-                            if (missingFields.length > 0) {
-                                console.error('Missing required fields:', missingFields);
-                                alert('Please fill in all required fields: ' + missingFields.join(', '));
-                                return;
-                            }
-
-                            console.log('Manual processing - all required fields present');
-                            const result = self.processCheckout(data);
-                            console.log('Manual checkout process result:', result);
-                        } catch (error) {
-                            console.error('Error in manual processing:', error);
-                            alert('An error occurred while processing your order. Please try again.');
-                        }
-                    }
-                });
-            }
         } else {
             console.error('Checkout form not found!');
         }
@@ -384,7 +296,6 @@ document.addEventListener('DOMContentLoaded', function () {
             // Load header and footer first, then initialize checkout
             import('./utils.mjs').then(({ loadHeaderFooter }) => {
                 loadHeaderFooter().then(() => {
-                    console.log('Header and footer loaded, initializing checkout...');
                     const checkout = new Checkout();
                     checkout.init();
                 });
@@ -393,19 +304,11 @@ document.addEventListener('DOMContentLoaded', function () {
 
         // Check if orders.js is loaded by looking for the global function
         if (typeof createOrderFromCart === 'function') {
-            console.log('Orders.js already loaded');
             initCheckout();
         } else {
-            console.log('Waiting for orders.js to load...');
             // Wait a bit for orders.js to load
             setTimeout(() => {
-                if (typeof createOrderFromCart === 'function') {
-                    console.log('Orders.js loaded after timeout');
-                    initCheckout();
-                } else {
-                    console.log('Orders.js still not loaded, proceeding anyway');
-                    initCheckout();
-                }
+                initCheckout();
             }, 100);
         }
     }
