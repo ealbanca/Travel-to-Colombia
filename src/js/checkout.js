@@ -324,35 +324,6 @@ Thank you for choosing Travel to Colombia! You will receive a confirmation email
 
         // Add input formatting for card number and expiration
         this.setupInputFormatting();
-
-        // Add a test button for debugging
-        this.addTestButton();
-    }
-
-    // Add a test button for debugging the redirect
-    addTestButton() {
-        const form = document.querySelector('form[name="checkout"]');
-        if (form) {
-            const testButton = document.createElement('button');
-            testButton.type = 'button';
-            testButton.textContent = 'Test Redirect';
-            testButton.style.background = 'red';
-            testButton.style.color = 'white';
-            testButton.style.marginLeft = '10px';
-            testButton.onclick = () => {
-                console.log('Test button clicked - attempting redirect');
-                const testOrder = {
-                    id: 'TEST-' + Date.now(),
-                    totals: { total: 100.00 }
-                };
-                this.showSuccessMessage(testOrder);
-            };
-            
-            const submitButton = document.getElementById('checkoutSubmit');
-            if (submitButton) {
-                submitButton.parentNode.insertBefore(testButton, submitButton.nextSibling);
-            }
-        }
     }
 
     // Setup input formatting for better UX

@@ -40,33 +40,63 @@ export async function loadHeaderFooter() {
         window.location.pathname.includes('/cart/') ||
         window.location.pathname.includes('/checkout/') ||
         window.location.pathname.includes('/contact/') ||
-        window.location.pathname.includes('/thankyou/');
+        window.location.pathname.includes('/thankyou/') ||
+        window.location.pathname.includes('/orders/') ||
+        window.location.pathname.includes('/login/');
 
     const basePath = isInSubfolder ? '../' : './';
+    console.log('loadHeaderFooter - Is in subfolder:', isInSubfolder);
+    console.log('loadHeaderFooter - Base path:', basePath);
 
     // Relative paths that work from the HTML file location
-    const headerTemplateFn = loadTemplate(`${basePath}public/partials/header.html`);
-    const footerTemplateFn = loadTemplate(`${basePath}public/partials/footer.html`);
+    const headerPath = `${basePath}public/partials/header.html`;
+    const footerPath = `${basePath}public/partials/footer.html`;
+    console.log('loadHeaderFooter - Header path:', headerPath);
+    console.log('loadHeaderFooter - Footer path:', footerPath);
+    
+    const headerTemplateFn = loadTemplate(headerPath);
+    const footerTemplateFn = loadTemplate(footerPath);
     const headerEl = document.querySelector("#main-header");
     const footerEl = document.querySelector("#main-footer");
 
-    // Load templates 
-    const headerTemplate = await headerTemplateFn();
-    const footerTemplate = await footerTemplateFn();
+    console.log('loadHeaderFooter - Header element found:', !!headerEl);
+    console.log('loadHeaderFooter - Footer element found:', !!footerEl);
 
-    // Insert the templates with dynamic path replacement
-    if (headerEl && headerTemplate) {
-        const processedHeaderTemplate = headerTemplate.replace(/\{\{basePath\}\}/g, basePath);
-        headerEl.innerHTML = processedHeaderTemplate;
-        // Dispatch event to notify that header is loaded
-        document.dispatchEvent(new CustomEvent('headerLoaded'));
-        // Initialize auth state after header is loaded
-        initializeAuthState();
-    }
+    try {
+        // Load templates 
+        console.log('loadHeaderFooter - Loading header template...');
+        const headerTemplate = await headerTemplateFn();
+        console.log('loadHeaderFooter - Header template loaded:', !!headerTemplate);
+        
+        console.log('loadHeaderFooter - Loading footer template...');
+        const footerTemplate = await footerTemplateFn();
+        console.log('loadHeaderFooter - Footer template loaded:', !!footerTemplate);
 
-    if (footerEl && footerTemplate) {
-        const processedFooterTemplate = footerTemplate.replace(/\{\{basePath\}\}/g, basePath);
-        footerEl.innerHTML = processedFooterTemplate;
+        // Insert the templates with dynamic path replacement
+        if (headerEl && headerTemplate) {
+            console.log('loadHeaderFooter - Inserting header template...');
+            const processedHeaderTemplate = headerTemplate.replace(/\{\{basePath\}\}/g, basePath);
+            headerEl.innerHTML = processedHeaderTemplate;
+            console.log('loadHeaderFooter - Header template inserted');
+            // Dispatch event to notify that header is loaded
+            document.dispatchEvent(new CustomEvent('headerLoaded'));
+            // Initialize auth state after header is loaded
+            initializeAuthState();
+        } else {
+            console.error('loadHeaderFooter - Header element or template missing');
+        }
+
+        if (footerEl && footerTemplate) {
+            console.log('loadHeaderFooter - Inserting footer template...');
+            const processedFooterTemplate = footerTemplate.replace(/\{\{basePath\}\}/g, basePath);
+            footerEl.innerHTML = processedFooterTemplate;
+            console.log('loadHeaderFooter - Footer template inserted');
+        } else {
+            console.error('loadHeaderFooter - Footer element or template missing');
+        }
+    } catch (error) {
+        console.error('loadHeaderFooter - Error loading templates:', error);
+        throw error;
     }
 
     // Set up footer copyright information

@@ -65,6 +65,12 @@ body {
     gap: 3rem;
     width: 100%;
     justify-content: space-around;
+    align-items: center; /* Ensure all items are vertically centered */
+}
+
+.navigation li {
+    display: flex;
+    align-items: center; /* Center content within each list item */
 }
 
 .navigation a {
@@ -77,6 +83,9 @@ body {
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.5px;
+    display: inline-flex; /* Changed to inline-flex for consistency */
+    align-items: center; /* Center content vertically */
+    line-height: normal; /* Ensure consistent line height */
 }
 
 .dropdown-toggle {
@@ -90,7 +99,9 @@ body {
     text-transform: uppercase;
     letter-spacing: 0.5px;
     cursor: pointer;
-    display: inline-block;
+    display: inline-flex; /* Changed from inline-block to inline-flex */
+    align-items: center; /* Center content vertically */
+    line-height: normal; /* Ensure consistent line height */
 }
 
 .navigation a:hover,
@@ -187,6 +198,29 @@ body {
 
 .dropdown:hover .dropdown-toggle::after {
     transform: rotate(180deg);
+}
+
+/* Auth Menu Item Specific Styles */
+#authMenuItem {
+    display: flex;
+    align-items: center;
+}
+
+#authMenuItem a,
+#authMenuItem .dropdown-toggle {
+    margin: 0;
+    line-height: 1.2;
+}
+
+/* User Menu Dropdown */
+#userMenu {
+    position: relative;
+}
+
+#userMenu.dropdown .dropdown-menu {
+    right: 0;
+    left: auto;
+    min-width: 180px;
 }
 
 #menu {

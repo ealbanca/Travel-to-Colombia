@@ -100,13 +100,22 @@ function createOrderFromCart(customerInfo) {
 
 // Function to render orders page
 function renderOrdersPage() {
+    console.log('renderOrdersPage called');
+    
     const ordersContent = document.getElementById('orders-content');
-    if (!ordersContent) return;
+    if (!ordersContent) {
+        console.error('orders-content element not found');
+        return;
+    }
+
+    console.log('orders-content element found');
 
     // Check if user is logged in using the correct token key
     const token = localStorage.getItem('so_token');
+    console.log('Token check:', !!token);
     
     if (!token) {
+        console.log('No token found, showing login prompt');
         ordersContent.innerHTML = `
             <div class="no-auth">
                 <h3>Please log in to view your orders</h3>
@@ -123,6 +132,8 @@ function renderOrdersPage() {
     try {
         // Try to get user info from stored user data first
         const currentUser = JSON.parse(localStorage.getItem('currentUser') || '{}');
+        console.log('Current user data:', currentUser);
+        
         if (currentUser.email) {
             userEmail = currentUser.email;
         } else {
@@ -134,11 +145,15 @@ function renderOrdersPage() {
             }
         }
     } catch (error) {
-        console.log('Could not decode user info, using guest email');
+        console.log('Could not decode user info, using guest email:', error);
     }
+
+    console.log('User email determined:', userEmail);
 
     // Get user's orders
     const userOrders = orderManager.getUserOrders(userEmail);
+    console.log('User orders found:', userOrders.length);
+    console.log('Orders data:', userOrders);
 
     if (userOrders.length === 0) {
         ordersContent.innerHTML = `
@@ -203,26 +218,21 @@ function createOrderHTML(order) {
     `;
 }
 
-// Initialize orders page when DOM is loaded
+// Initialize orders page when DOM is loaded (only if called directly)
 document.addEventListener('DOMContentLoaded', function() {
-    // Only render if we're on the orders page
-    if (window.location.pathname.includes('/orders/')) {
-        // Add some debugging
-        console.log('Orders page loaded');
+    // Only render if we're on the orders page AND this is a direct load (not called from HTML)
+    if (window.location.pathname.includes('/orders/') && !window.ordersPageInitialized) {
+        console.log('Orders.js: Direct DOM initialization');
         console.log('Token exists:', !!localStorage.getItem('so_token'));
         console.log('Current user:', localStorage.getItem('currentUser'));
         
-        // Wait a bit to ensure header is loaded, then render
+        // Mark as initialized to prevent double loading
+        window.ordersPageInitialized = true;
+        
+        // Wait a bit to ensure everything is loaded, then render
         setTimeout(() => {
             renderOrdersPage();
         }, 500);
-    }
-});
-
-// Also listen for headerLoaded event in case it's available
-document.addEventListener('headerLoaded', function() {
-    if (window.location.pathname.includes('/orders/')) {
-        renderOrdersPage();
     }
 });
 
