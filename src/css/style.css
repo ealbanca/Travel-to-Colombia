@@ -55,7 +55,8 @@
 form input[type="submit"],
 form .submit-button,
 .hero-text .cta-button,
-.auth-btn {
+.auth-btn,
+.button {
     padding: 1rem 2rem;
     border-radius: 8px;
     text-decoration: none;
@@ -178,7 +179,7 @@ body {
 .dropdown-toggle {
     text-decoration: none;
     color: white;
-    padding: var(--padding-standard);
+    padding: 1rem 0.8rem;
     border-radius: var(--border-radius);
     transition: var(--transition-standard);
     font-size: 1.1rem;
@@ -188,6 +189,7 @@ body {
     display: inline-flex;
     align-items: center;
     line-height: normal;
+    box-sizing: border-box;
 }
 
 .dropdown-toggle {
@@ -242,6 +244,7 @@ body {
 /* Dropdown Menu Styles */
 .dropdown {
     position: relative;
+    display: inline-block;
 }
 
 .dropdown-menu {
@@ -250,14 +253,15 @@ body {
     top: 100%;
     left: 0;
     background-color: var(--color-primary);
-    min-width: 200px;
+    width: 100%;
     box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
     border-radius: 4px;
     z-index: 1000;
-    margin-top: 0.5rem;
     opacity: 0;
     transform: translateY(-10px);
     transition: opacity 0.3s ease, transform 0.3s ease;
+    padding-top: 0.5rem;
+    box-sizing: border-box;
 }
 
 .dropdown-menu li {
@@ -267,13 +271,21 @@ body {
 .dropdown-menu a {
     display: block;
     color: white;
-    padding: 1rem 1.5rem;
+    padding: 1rem 0.8rem;
     text-decoration: none;
-    font-size: 1rem;
+    font-size: 0.9rem;
     font-weight: 600;
     text-transform: capitalize;
     transition: background-color 0.3s ease;
     border-radius: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    box-sizing: border-box;
+}
+
+.dropdown-menu li:first-child a {
+    padding-top: 1.3rem;
 }
 
 .dropdown-menu a:hover {
@@ -305,9 +317,13 @@ body {
 }
 
 #userMenu.dropdown .dropdown-menu {
-    right: 0;
-    left: auto;
-    min-width: 180px;
+    left: 0;
+    right: auto;
+    width: 100%;
+}
+
+#userMenu.dropdown:hover .dropdown-menu {
+    transform: translateY(0);
 }
 
 #menu {
@@ -738,17 +754,14 @@ main {
     gap: 1rem;
 }
 
-.contact-info {
+.contact-info,
+.copyright {
     text-align: center;
 }
 
 .contact-info h3 {
     margin-bottom: 1rem;
     color: var(--color-accent);
-}
-
-.copyright {
-    text-align: center;
 }
 
 .smedia {
@@ -759,129 +772,6 @@ main {
 
 .smedia:hover {
     transform: scale(1.1);
-}
-
-/* Responsive Design */
-@media (max-width: 768px) {
-    #main-header {
-        padding: 1rem;
-    }
-
-    .navigation {
-        display: none;
-        margin-left: 0;
-    }
-
-    /* Mobile dropdown adjustments */
-    .dropdown-menu {
-        position: static;
-        display: block;
-        background-color: rgba(0, 105, 148, 0.9);
-        box-shadow: none;
-        border-radius: 0;
-        margin-top: 0;
-        padding-left: 1rem;
-    }
-
-    .dropdown:hover .dropdown-menu {
-        display: block;
-    }
-
-    #menu {
-        display: block;
-    }
-
-    .logo a {
-        font-size: 1.2rem;
-    }
-
-    .logo img {
-        height: 80px;
-        /* Smaller logo on mobile */
-    }
-
-    /* Hero responsive */
-    .hero {
-        height: calc(100vh - 120px);
-        /* Adjust for smaller header */
-        min-height: 400px;
-    }
-
-    .hero-text {
-        padding: 2rem 1.5rem;
-        margin: 0 1rem;
-    }
-
-    .hero-text h1 {
-        font-size: 2.5rem;
-    }
-
-    .hero-text p {
-        font-size: 1.1rem;
-    }
-
-    .hero-text .cta-button {
-        padding: 0.8rem 1.5rem;
-        font-size: 1rem;
-    }
-
-    /* Footer responsive */
-    #main-footer {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-        text-align: center;
-    }
-
-    /* Weather responsive */
-    #current-weather {
-        grid-template-columns: 1fr;
-        gap: 1rem;
-    }
-
-    .weather-info {
-        flex-direction: column;
-        text-align: center;
-    }
-
-    .temperature-info,
-    .temp-range {
-        text-align: center;
-    }
-
-    /* Packages responsive */
-    .packages-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-
-    .packages {
-        padding: 2rem 1rem;
-    }
-
-    .packages h2 {
-        font-size: 2rem;
-    }
-}
-
-/* Medium screens - adjust navigation spacing */
-@media (max-width: 1024px) and (min-width: 769px) {
-    .navigation ul {
-        gap: 2rem;
-    }
-
-    .navigation a {
-        padding: 0.8rem 1.2rem;
-        font-size: 1rem;
-    }
-
-    /* Hero adjustments for tablets */
-    .hero-text h1 {
-        font-size: 3rem;
-    }
-
-    .hero-text {
-        padding: 2.5rem;
-    }
 }
 
 /* Package Detail Page Styles */
@@ -899,6 +789,17 @@ main {
     overflow: hidden;
     margin-top: 2rem;
     margin-bottom: 2rem;
+}
+
+.thank-you-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    text-align: center;
+}
+
+.button {
+    margin-top: 2rem;
 }
 
 .package-detail-hero {
@@ -1019,7 +920,8 @@ main {
 form input[type="submit"],
 form .submit-button,
 .hero-text .cta-button,
-.auth-btn {
+.auth-btn,
+.button {
     padding: 1rem 2rem;
     border-radius: 8px;
     text-decoration: none;
@@ -1033,9 +935,11 @@ form .submit-button,
     display: inline-block;
 }
 
+
 .btn-primary,
 form input[type="submit"],
-form .submit-button {
+form .submit-button,
+.button {
     background-color: var(--color-accent);
     color: var(--color-primary);
     border: 2px solid var(--color-accent);
@@ -1043,7 +947,8 @@ form .submit-button {
 
 .btn-primary:hover,
 form input[type="submit"]:hover,
-form .submit-button:hover {
+form .submit-button:hover,
+.button:hover {
     background-color: var(--color-secondary);
     color: white;
     border: 2px solid var(--color-secondary);
@@ -1080,46 +985,6 @@ form .submit-button:hover {
     font-size: 1.1rem;
     margin-bottom: 2rem;
     line-height: 1.6;
-}
-
-/* Package Detail Responsive */
-@media (max-width: 768px) {
-    .package-detail-container {
-        margin: 1rem;
-        border-radius: 10px;
-    }
-
-    .package-detail-hero {
-        height: 300px;
-    }
-
-    .package-detail-title {
-        font-size: 2rem;
-    }
-
-    .package-detail-price {
-        font-size: 1.2rem;
-    }
-
-    .package-detail-content {
-        padding: 2rem 1.5rem;
-    }
-
-    .package-detail-actions {
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .btn-primary,
-    .btn-secondary {
-        width: 100%;
-        text-align: center;
-    }
-
-    .package-detail-highlights ul,
-    .package-detail-includes ul {
-        grid-template-columns: 1fr;
-    }
 }
 
 /* Cart Page Styles */
@@ -1323,46 +1188,6 @@ form .submit-button:hover {
     right: -5px !important;
     min-width: 18px !important;
     text-align: center !important;
-}
-
-/* Cart Responsive Design */
-@media (max-width: 768px) {
-    .cart {
-        padding: 1rem;
-    }
-
-    .cart h2 {
-        font-size: 2rem;
-    }
-
-    .cart-item {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 1rem;
-    }
-
-    .cart-item-image {
-        justify-self: center;
-    }
-
-    .cart-item-price,
-    .cart-item-details {
-        text-align: center;
-    }
-
-    .cart-actions {
-        flex-direction: column;
-        gap: 1rem;
-    }
-
-    .btn-primary,
-    .btn-secondary {
-        width: 100%;
-    }
-
-    .empty-cart {
-        padding: 2rem 1rem;
-    }
 }
 
 /* Contact Page Styles */
@@ -1569,27 +1394,6 @@ iframe {
     border-radius: 5px;
 }
 
-/* Mobile Responsiveness */
-@media (max-width: 768px) {
-    .checkout-card {
-        margin: 1rem;
-        padding: 1.5rem;
-    }
-
-    .form-row {
-        grid-template-columns: 1fr;
-        gap: 0.5rem;
-    }
-
-    .checkout-card h1 {
-        font-size: 1.5rem;
-    }
-
-    .checkout-card fieldset {
-        padding: 1rem;
-    }
-}
-
 /* Modal Styles for Authentication */
 .modal {
     display: none;
@@ -1733,13 +1537,15 @@ iframe {
 }
 
 /* Orders Page Styles */
-.orders-container {
+.orders-container,
+.thank-you-container {
     max-width: 1200px;
     margin: 2rem auto;
     padding: 2rem;
 }
 
-.orders-container h1 {
+.orders-container h1,
+.thank-you-container h2 {
     color: var(--color-primary);
     text-align: center;
     margin-bottom: 2rem;
@@ -1785,7 +1591,8 @@ iframe {
     gap: 2rem;
 }
 
-.order-card {
+.order-card,
+.thank-you-container {
     background: white;
     border-radius: 15px;
     overflow: hidden;
@@ -1911,8 +1718,227 @@ iframe {
     font-size: 0.95rem;
 }
 
-/* Orders Responsive Design */
+/* Medium screens - adjust navigation spacing */
+@media (max-width: 1024px) and (min-width: 769px) {
+    .navigation ul {
+        gap: 2rem;
+    }
+
+    .navigation a {
+        padding: 0.8rem 1.2rem;
+        font-size: 1rem;
+    }
+
+    /* Hero adjustments for tablets */
+    .hero-text h1 {
+        font-size: 3rem;
+    }
+
+    .hero-text {
+        padding: 2.5rem;
+    }
+}
+
+/* Mobile screens */
 @media (max-width: 768px) {
+
+    /* Header responsive */
+    #main-header {
+        padding: 1rem;
+    }
+
+    .navigation {
+        display: none;
+        margin-left: 0;
+    }
+
+    /* Mobile dropdown adjustments */
+    .dropdown-menu {
+        position: static;
+        display: block;
+        background-color: rgba(0, 105, 148, 0.9);
+        box-shadow: none;
+        border-radius: 0;
+        margin-top: 0;
+        padding-left: 1rem;
+    }
+
+    .dropdown:hover .dropdown-menu {
+        display: block;
+    }
+
+    #menu {
+        display: block;
+    }
+
+    .logo a {
+        font-size: 1.2rem;
+    }
+
+    .logo img {
+        height: 80px;
+        /* Smaller logo on mobile */
+    }
+
+    /* Hero responsive */
+    .hero {
+        height: calc(100vh - 120px);
+        /* Adjust for smaller header */
+        min-height: 400px;
+    }
+
+    .hero-text {
+        padding: 2rem 1.5rem;
+        margin: 0 1rem;
+    }
+
+    .hero-text h1 {
+        font-size: 2.5rem;
+    }
+
+    .hero-text p {
+        font-size: 1.1rem;
+    }
+
+    .hero-text .cta-button {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    /* Footer responsive */
+    #main-footer {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        text-align: center;
+    }
+
+    /* Weather responsive */
+    #current-weather {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .weather-info {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .temperature-info,
+    .temp-range {
+        text-align: center;
+    }
+
+    /* Packages responsive */
+    .packages-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .packages {
+        padding: 2rem 1rem;
+    }
+
+    .packages h2 {
+        font-size: 2rem;
+    }
+
+    /* Package Detail responsive */
+    .package-detail-container {
+        margin: 1rem;
+        border-radius: 10px;
+    }
+
+    .package-detail-hero {
+        height: 300px;
+    }
+
+    .package-detail-title {
+        font-size: 2rem;
+    }
+
+    .package-detail-price {
+        font-size: 1.2rem;
+    }
+
+    .package-detail-content {
+        padding: 2rem 1.5rem;
+    }
+
+    .package-detail-actions {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .btn-primary,
+    .btn-secondary,
+    .button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .package-detail-highlights ul,
+    .package-detail-includes ul {
+        grid-template-columns: 1fr;
+    }
+
+    /* Cart responsive */
+    .cart {
+        padding: 1rem;
+    }
+
+    .cart h2 {
+        font-size: 2rem;
+    }
+
+    .cart-item {
+        grid-template-columns: 1fr;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    .cart-item-image {
+        justify-self: center;
+    }
+
+    .cart-item-price,
+    .cart-item-details {
+        text-align: center;
+    }
+
+    .cart-actions {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+        width: 100%;
+    }
+
+    .empty-cart {
+        padding: 2rem 1rem;
+    }
+
+    /* Checkout responsive */
+    .checkout-card {
+        margin: 1rem;
+        padding: 1.5rem;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+        gap: 0.5rem;
+    }
+
+    .checkout-card h1 {
+        font-size: 1.5rem;
+    }
+
+    .checkout-card fieldset {
+        padding: 1rem;
+    }
+
+    /* Orders responsive */
     .orders-container {
         padding: 1rem;
         margin: 1rem;
