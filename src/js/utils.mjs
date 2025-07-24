@@ -32,8 +32,6 @@ function loadTemplate(path) {
 
 // Function to load header and footer templates
 export async function loadHeaderFooter() {
-    console.log('loadHeaderFooter - Current path:', window.location.pathname);
-
     // Detect if we're in a subdirectory and adjust paths accordingly
     const isInSubfolder = window.location.pathname.includes('/package_pages/') ||
         window.location.pathname.includes('/package_list/') ||
@@ -45,52 +43,34 @@ export async function loadHeaderFooter() {
         window.location.pathname.includes('/login/');
 
     const basePath = isInSubfolder ? '../' : './';
-    console.log('loadHeaderFooter - Is in subfolder:', isInSubfolder);
-    console.log('loadHeaderFooter - Base path:', basePath);
 
     // Relative paths that work from the HTML file location
     const headerPath = `${basePath}public/partials/header.html`;
     const footerPath = `${basePath}public/partials/footer.html`;
-    console.log('loadHeaderFooter - Header path:', headerPath);
-    console.log('loadHeaderFooter - Footer path:', footerPath);
-    
+
     const headerTemplateFn = loadTemplate(headerPath);
     const footerTemplateFn = loadTemplate(footerPath);
     const headerEl = document.querySelector("#main-header");
     const footerEl = document.querySelector("#main-footer");
 
-    console.log('loadHeaderFooter - Header element found:', !!headerEl);
-    console.log('loadHeaderFooter - Footer element found:', !!footerEl);
-
     try {
         // Load templates 
-        console.log('loadHeaderFooter - Loading header template...');
         const headerTemplate = await headerTemplateFn();
-        console.log('loadHeaderFooter - Header template loaded:', !!headerTemplate);
-        
-        console.log('loadHeaderFooter - Loading footer template...');
         const footerTemplate = await footerTemplateFn();
-        console.log('loadHeaderFooter - Footer template loaded:', !!footerTemplate);
 
         // Insert the templates with dynamic path replacement
         if (headerEl && headerTemplate) {
-            console.log('loadHeaderFooter - Inserting header template...');
             const processedHeaderTemplate = headerTemplate.replace(/\{\{basePath\}\}/g, basePath);
             headerEl.innerHTML = processedHeaderTemplate;
-            console.log('loadHeaderFooter - Header template inserted');
             // Dispatch event to notify that header is loaded
             document.dispatchEvent(new CustomEvent('headerLoaded'));
-            // Initialize auth state after header is loaded
-            initializeAuthState();
         } else {
             console.error('loadHeaderFooter - Header element or template missing');
         }
 
         if (footerEl && footerTemplate) {
-            console.log('loadHeaderFooter - Inserting footer template...');
             const processedFooterTemplate = footerTemplate.replace(/\{\{basePath\}\}/g, basePath);
             footerEl.innerHTML = processedFooterTemplate;
-            console.log('loadHeaderFooter - Footer template inserted');
         } else {
             console.error('loadHeaderFooter - Footer element or template missing');
         }
@@ -104,15 +84,15 @@ export async function loadHeaderFooter() {
 
     // Initialize cart count display after header is loaded
     initializeCartCount();
-    
+
     // Ensure auth modal exists on the page FIRST
     ensureAuthModal();
-    
+
     // Initialize auth state and modal functionality with a delay to ensure DOM is ready
     setTimeout(() => {
-        console.log('Initializing auth state...');
         initializeAuthState();
-    }, 200); // Increased delay to ensure everything is loaded
+        initializeLoginModal();
+    }, 200);
 }
 
 // Function to initialize cart count display
@@ -133,7 +113,9 @@ export function setupFooter() {
     if (currentYearElement) {
         currentYearElement.innerHTML = "<br><br>" + "Hared Albancando Robles<br><br>Final Project WDD 330<br><br>" + year + " &copy;";
     }
-}// Function to get URL parameters
+}
+
+// Function to get URL parameters
 export function getParam(param) {
     const urlParams = new URLSearchParams(window.location.search);
     return urlParams.get(param);
@@ -160,17 +142,17 @@ export function getLocalStorage(key) {
 // Alert message function
 export function alertMessage(message, type = "error") {
     const alertContainer = document.getElementById("alertContainer") || document.body;
-    
+
     // Remove existing alerts
     const existingAlerts = alertContainer.querySelectorAll('.alert');
     existingAlerts.forEach(alert => alert.remove());
-    
+
     // Create new alert
     const alertDiv = document.createElement('div');
     alertDiv.className = `alert ${type}`;
     alertDiv.textContent = message;
     alertDiv.style.display = 'block';
-    
+
     if (document.getElementById("alertContainer")) {
         alertContainer.appendChild(alertDiv);
     } else {
@@ -184,7 +166,7 @@ export function alertMessage(message, type = "error") {
         alertDiv.style.borderRadius = '5px';
         alertDiv.style.minWidth = '200px';
         alertDiv.style.textAlign = 'center';
-        
+
         if (type === 'error') {
             alertDiv.style.backgroundColor = '#f8d7da';
             alertDiv.style.color = '#721c24';
@@ -194,9 +176,9 @@ export function alertMessage(message, type = "error") {
             alertDiv.style.color = '#155724';
             alertDiv.style.border = '1px solid #c3e6cb';
         }
-        
+
         document.body.appendChild(alertDiv);
-        
+
         // Auto-remove after 3 seconds
         setTimeout(() => {
             if (alertDiv.parentNode) {
@@ -213,7 +195,7 @@ function initializeAuthState() {
     const userMenu = document.getElementById('userMenu');
     const userGreeting = document.getElementById('userGreeting');
     const logoutLink = document.getElementById('logoutLink');
-    
+
     // Clear any existing event listeners to prevent duplicates
     if (logoutLink) {
         logoutLink.replaceWith(logoutLink.cloneNode(true));
@@ -221,16 +203,16 @@ function initializeAuthState() {
     if (loginLink) {
         loginLink.replaceWith(loginLink.cloneNode(true));
     }
-    
+
     // Re-get elements after cloning
     const freshLoginLink = document.getElementById('loginLink');
     const freshLogoutLink = document.getElementById('logoutLink');
-    
+
     if (token && isTokenValid(token)) {
         // User is logged in
         if (freshLoginLink) freshLoginLink.style.display = 'none';
         if (userMenu) userMenu.style.display = 'block';
-        
+
         // Try to get user info from token
         try {
             const decoded = jwtDecode(token);
@@ -239,7 +221,7 @@ function initializeAuthState() {
         } catch (e) {
             if (userGreeting) userGreeting.textContent = 'Welcome, User!';
         }
-        
+
         // Add logout functionality
         if (freshLogoutLink) {
             freshLogoutLink.addEventListener('click', async (e) => {
@@ -253,7 +235,7 @@ function initializeAuthState() {
         // User is not logged in
         if (freshLoginLink) freshLoginLink.style.display = 'block';
         if (userMenu) userMenu.style.display = 'none';
-        
+
         // Add login modal functionality
         if (freshLoginLink) {
             freshLoginLink.addEventListener('click', (e) => {
@@ -262,8 +244,8 @@ function initializeAuthState() {
             });
         }
     }
-    
-    // Initialize modal functionality - ensure this happens after modal exists
+
+    // Initialize modal functionality after a brief delay
     setTimeout(() => {
         initializeLoginModal();
     }, 50);
@@ -271,9 +253,8 @@ function initializeAuthState() {
 
 // Function to update auth state without page reload
 function updateAuthState() {
-    console.log('Updating auth state...');
     initializeAuthState();
-    
+
     // Also update cart count in case user changed
     if (typeof cart !== 'undefined' && cart.updateCartCount) {
         cart.updateCartCount();
@@ -285,23 +266,18 @@ window.updateAuthState = updateAuthState;
 
 // Helper function to validate JWT token
 function isTokenValid(token) {
-    if (token && typeof token === "string" && token.split(".").length === 3) {
-        try {
-            // Import jwtDecode dynamically to avoid issues
-            import('https://cdn.jsdelivr.net/npm/jwt-decode@4.0.0/build/esm/index.js')
-                .then(module => {
-                    const { jwtDecode } = module;
-                    const decoded = jwtDecode(token);
-                    let currentDate = new Date();
-                    return decoded.exp * 1000 > currentDate.getTime();
-                })
-                .catch(() => false);
-            return true; // Basic validation passed
-        } catch (e) {
-            return false;
-        }
+    if (!token || typeof token !== "string" || token.split(".").length !== 3) {
+        return false;
     }
-    return false;
+
+    try {
+        // Basic validation for JWT structure
+        const payload = JSON.parse(atob(token.split('.')[1]));
+        const currentTime = Math.floor(Date.now() / 1000);
+        return payload.exp && payload.exp > currentTime;
+    } catch (e) {
+        return false;
+    }
 }
 
 // Modal functionality
@@ -313,9 +289,8 @@ export function openLoginModal() {
         clearModalAlerts();
     }
 }
-
+// Function to close the login modal and clear forms
 export function closeLoginModal() {
-    console.log('Closing login modal...');
     const modal = document.getElementById('authModal');
     if (modal) {
         modal.style.display = 'none';
@@ -325,17 +300,12 @@ export function closeLoginModal() {
         if (loginForm) loginForm.reset();
         if (signupForm) signupForm.reset();
         clearModalAlerts();
-        console.log('Modal closed successfully');
-    } else {
-        console.error('Modal not found when trying to close!');
     }
 }
-
+// function to initialize the login modal
 function initializeLoginModal() {
     const modal = document.getElementById('authModal');
-    
-    console.log('Initializing login modal...', modal ? 'Modal found' : 'Modal NOT found');
-    
+
     if (!modal) {
         console.error('Auth modal not found! Creating it now...');
         ensureAuthModal();
@@ -345,84 +315,66 @@ function initializeLoginModal() {
         }, 100);
         return;
     }
-    
+
     const closeBtn = modal.querySelector('.close');
     const authTabs = modal.querySelectorAll('.auth-tab');
     const authForms = modal.querySelectorAll('.auth-form');
     const loginForm = document.getElementById('loginForm');
     const signupForm = document.getElementById('signupForm');
-    
-    console.log('Modal elements found:', {
-        closeBtn: !!closeBtn,
-        authTabs: authTabs.length,
-        authForms: authForms.length,
-        loginForm: !!loginForm,
-        signupForm: !!signupForm
-    });
-    
+
     // Close modal functionality
     if (closeBtn) {
         closeBtn.addEventListener('click', (e) => {
-            console.log('Close button clicked');
             closeLoginModal();
         });
-    } else {
-        console.error('Close button not found!');
     }
-    
+
     // Close modal when clicking outside
     window.addEventListener('click', (event) => {
         if (event.target === modal) {
             closeLoginModal();
         }
     });
-    
+
     // Tab switching functionality
     authTabs.forEach((tab, index) => {
         tab.addEventListener('click', (e) => {
-            console.log(`Tab ${index} clicked:`, tab.getAttribute('data-tab'));
             const targetTab = tab.getAttribute('data-tab');
-            
+
             // Remove active class from all tabs and forms
             authTabs.forEach(t => t.classList.remove('active'));
             authForms.forEach(f => f.classList.remove('active'));
-            
+
             // Add active class to clicked tab
             tab.classList.add('active');
-            
+
             // Show corresponding form
             const targetForm = document.getElementById(`${targetTab}Form`);
             if (targetForm) {
                 targetForm.classList.add('active');
-                console.log(`Switched to ${targetTab} form`);
-            } else {
-                console.error(`Target form not found: ${targetTab}Form`);
             }
-            
+
             // Clear any existing alerts
             clearModalAlerts();
         });
     });
-    
+
     // Login form submission
     if (loginForm) {
         loginForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            console.log('Login form submitted');
             clearModalAlerts();
-            
+
             const email = document.getElementById('loginEmail').value;
             const password = document.getElementById('loginPassword').value;
-            
-            console.log('Login attempt with email:', email);
-            
+
             if (!email || !password) {
                 showModalAlert('Please fill in all fields', 'error');
                 return;
             }
-            
+
             const creds = { email, password };
-            
+
             try {
                 // Import login function dynamically to avoid circular imports
                 const { login } = await import('./auth.mjs');
@@ -432,42 +384,37 @@ function initializeLoginModal() {
                 showModalAlert(error.message || 'Login failed', 'error');
             }
         });
-    } else {
-        console.error('Login form not found!');
     }
-    
+
     // Signup form submission
     if (signupForm) {
         signupForm.addEventListener('submit', async (e) => {
             e.preventDefault();
-            console.log('Signup form submitted');
             clearModalAlerts();
-            
+
             const name = document.getElementById('signupName').value;
             const email = document.getElementById('signupEmail').value;
             const password = document.getElementById('signupPassword').value;
             const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            console.log('Signup attempt with:', { name, email, passwordLength: password.length });
-            
+
             // Validation
             if (!name || !email || !password || !confirmPassword) {
                 showModalAlert('Please fill in all fields', 'error');
                 return;
             }
-            
+
             if (password !== confirmPassword) {
                 showModalAlert('Passwords do not match', 'error');
                 return;
             }
-            
+
             if (password.length < 6) {
                 showModalAlert('Password must be at least 6 characters long', 'error');
                 return;
             }
-            
+
             const userData = { name, email, password };
-            
+
             try {
                 // Import signup function dynamically to avoid circular imports
                 const { signup } = await import('./auth.mjs');
@@ -475,33 +422,31 @@ function initializeLoginModal() {
                 // Clear signup form
                 signupForm.reset();
                 showModalAlert('Account created successfully! Logging you in...', 'success');
-                
+
                 // The signup function will handle auto-login, so we just wait and close modal
                 setTimeout(() => {
                     closeLoginModal();
                 }, 2000);
-                
+
             } catch (error) {
                 console.error('Signup error:', error);
                 showModalAlert(error.message || 'Signup failed', 'error');
             }
         });
-    } else {
-        console.error('Signup form not found!');
     }
 }
 
 function showModalAlert(message, type = 'error') {
     const alertContainer = document.getElementById('alertContainer');
     if (!alertContainer) return;
-    
+
     clearModalAlerts();
-    
+
     const alertDiv = document.createElement('div');
     alertDiv.className = `alert ${type}`;
     alertDiv.textContent = message;
     alertDiv.style.display = 'block';
-    
+
     alertContainer.appendChild(alertDiv);
 }
 
@@ -518,7 +463,7 @@ function ensureAuthModal() {
     if (document.getElementById('authModal')) {
         return;
     }
-    
+
     // Create modal HTML
     const modalHTML = `
         <div id="authModal" class="modal" style="display: none;">
@@ -568,7 +513,7 @@ function ensureAuthModal() {
             </div>
         </div>
     `;
-    
+
     // Add modal to body
     document.body.insertAdjacentHTML('beforeend', modalHTML);
 }
