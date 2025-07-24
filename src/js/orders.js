@@ -212,6 +212,16 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log('Token exists:', !!localStorage.getItem('so_token'));
         console.log('Current user:', localStorage.getItem('currentUser'));
         
+        // Wait a bit to ensure header is loaded, then render
+        setTimeout(() => {
+            renderOrdersPage();
+        }, 500);
+    }
+});
+
+// Also listen for headerLoaded event in case it's available
+document.addEventListener('headerLoaded', function() {
+    if (window.location.pathname.includes('/orders/')) {
         renderOrdersPage();
     }
 });

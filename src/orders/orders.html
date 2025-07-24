@@ -30,14 +30,24 @@
         </div>
     </main>
     <footer id="main-footer"></footer>
-    <script src="../js/main.js"></script>
+    <script type="module" src="../js/main.js"></script>
     <script src="../js/cart.js"></script>
     <script type="module">
         // Import the openLoginModal function and make it globally available
         import { openLoginModal } from '../js/utils.mjs';
         window.openLoginModal = openLoginModal;
+        
+        // Import loadHeaderFooter to ensure proper loading order
+        import { loadHeaderFooter } from '../js/utils.mjs';
+        
+        // Wait for header and footer to load before rendering orders
+        loadHeaderFooter().then(() => {
+            // Load orders.js after header/footer are ready
+            const script = document.createElement('script');
+            script.src = '../js/orders.js';
+            document.head.appendChild(script);
+        });
     </script>
-    <script src="../js/orders.js"></script>
 </body>
 
 </html>
