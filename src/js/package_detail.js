@@ -2,15 +2,29 @@ import { getPackageById } from "./externalServices.mjs";
 import { getParam, loadHeaderFooter } from "./utils.mjs";
 
 // Load header and footer
-loadHeaderFooter().then(() => {
-    console.log('Header and footer loaded successfully');
-}).catch(error => {
+loadHeaderFooter().catch(error => {
     console.error('Error loading header/footer:', error);
 });
 
 // Get URL parameters
 const packageId = getParam("package");
 const city = getParam("city");
+
+// Helper function to capitalize city name
+function capitalizeCity(cityName) {
+    return cityName.charAt(0).toUpperCase() + cityName.slice(1);
+}
+
+// Helper function to create error message template
+function createErrorMessage(title, message, backLink, backText) {
+    return `
+        <div class="error-message">
+            <h2>${title}</h2>
+            <p>${message}</p>
+            <a href="${backLink}" class="btn-primary">${backText}</a>
+        </div>
+    `;
+}
 
 // Package detail template
 function packageDetailTemplate(travelPackage) {
@@ -57,7 +71,7 @@ function packageDetailTemplate(travelPackage) {
                         Book Now - $${travelPackage.price} ${travelPackage.currency}
                     </button>
                     <a href="../package_list/index.html?city=${city}" class="btn-secondary">
-                        Back to ${city.charAt(0).toUpperCase() + city.slice(1)} Packages
+                        Back to ${capitalizeCity(city)} Packages
                     </a>
                 </div>
             </div>
@@ -67,28 +81,28 @@ function packageDetailTemplate(travelPackage) {
 
 // Function to load and display package details
 async function loadPackageDetail() {
+    const container = document.querySelector('.package-detail-container');
+
     try {
         if (!packageId || !city) {
-            document.querySelector('.package-detail-container').innerHTML = `
-                <div class="error-message">
-                    <h2>Package Not Found</h2>
-                    <p>Sorry, the requested package could not be found.</p>
-                    <a href="../index.html" class="btn-primary">Back to Home</a>
-                </div>
-            `;
+            container.innerHTML = createErrorMessage(
+                "Package Not Found",
+                "Sorry, the requested package could not be found.",
+                "../index.html",
+                "Back to Home"
+            );
             return;
         }
 
         const travelPackage = await getPackageById(city, packageId);
 
         if (!travelPackage) {
-            document.querySelector('.package-detail-container').innerHTML = `
-                <div class="error-message">
-                    <h2>Package Not Found</h2>
-                    <p>Sorry, the requested package could not be found.</p>
-                    <a href="../package_list/index.html?city=${city}" class="btn-primary">Back to ${city.charAt(0).toUpperCase() + city.slice(1)} Packages</a>
-                </div>
-            `;
+            container.innerHTML = createErrorMessage(
+                "Package Not Found",
+                "Sorry, the requested package could not be found.",
+                `../package_list/index.html?city=${city}`,
+                `Back to ${capitalizeCity(city)} Packages`
+            );
             return;
         }
 
@@ -96,18 +110,16 @@ async function loadPackageDetail() {
         document.title = `${travelPackage.title} - Travel to Colombia`;
 
         // Render package details
-        const container = document.querySelector('.package-detail-container');
         container.innerHTML = packageDetailTemplate(travelPackage);
 
     } catch (error) {
         console.error('Error loading package details:', error);
-        document.querySelector('.package-detail-container').innerHTML = `
-            <div class="error-message">
-                <h2>Error Loading Package</h2>
-                <p>There was an error loading the package details. Please try again later.</p>
-                <a href="../package_list/index.html?city=${city}" class="btn-primary">Back to Packages</a>
-            </div>
-        `;
+        container.innerHTML = createErrorMessage(
+            "Error Loading Package",
+            "There was an error loading the package details. Please try again later.",
+            `../package_list/index.html?city=${city}`,
+            "Back to Packages"
+        );
     }
 }
 
@@ -115,14 +127,14 @@ async function loadPackageDetail() {
 window.bookPackage = async function (packageId) {
     try {
         const travelPackage = await getPackageById(city, packageId);
-        if (travelPackage) {
-            const success = window.addPackageToCart(travelPackage, city);
-            if (success) {
-                // Optionally redirect to cart page or show success message
-                // window.location.href = '../cart/index.html';
-            }
-        } else {
+        if (!travelPackage) {
             alert('Error: Package not found. Please try again.');
+            return;
+        }
+
+        const success = window.addPackageToCart(travelPackage, city);
+        if (!success) {
+            alert('Error adding package to cart. Please try again.');
         }
     } catch (error) {
         console.error('Error adding package to cart:', error);
