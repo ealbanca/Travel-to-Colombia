@@ -1,5 +1,10 @@
 import { getTravelPackages } from "./externalServices.mjs";
-import { renderListWithTemplate } from "./utils.mjs";
+import { renderListWithTemplate, getParam } from "./utils.mjs";
+
+// Helper function to capitalize city name
+function capitalizeCity(cityName) {
+    return cityName.charAt(0).toUpperCase() + cityName.slice(1);
+}
 
 function packageCardTemplate(travelPackage) {
     // Detect if we're in a subdirectory and adjust image path accordingly
@@ -7,8 +12,7 @@ function packageCardTemplate(travelPackage) {
     const imagePath = isInSubfolder ? `../public/images/${travelPackage.image}` : `./public/images/${travelPackage.image}`;
 
     // Get the current city from URL parameters for the detail page link
-    const urlParams = new URLSearchParams(window.location.search);
-    const currentCity = urlParams.get('city');
+    const currentCity = getParam('city');
 
     const detailUrl = `../package_pages/index.html?package=${travelPackage.id}&city=${currentCity}`;
 
@@ -41,8 +45,10 @@ export default async function packageList(selector, city) {
 
     // render out the package list to the element
     renderListWithTemplate(packageCardTemplate, el, packages);
-    document.querySelector(".title").innerHTML = `${city.charAt(0).toUpperCase() + city.slice(1)} Travel Packages`;
+    
+    const capitalizedCity = capitalizeCity(city);
+    document.querySelector(".title").innerHTML = `${capitalizedCity} Travel Packages`;
 
     // Update the page title with the city name
-    document.title = `${city.charAt(0).toUpperCase() + city.slice(1)} Travel Packages - Travel to Colombia`;
+    document.title = `${capitalizedCity} Travel Packages - Travel to Colombia`;
 }
