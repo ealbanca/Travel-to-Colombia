@@ -214,9 +214,21 @@ function initializeAuthState() {
     const userGreeting = document.getElementById('userGreeting');
     const logoutLink = document.getElementById('logoutLink');
     
+    // Clear any existing event listeners to prevent duplicates
+    if (logoutLink) {
+        logoutLink.replaceWith(logoutLink.cloneNode(true));
+    }
+    if (loginLink) {
+        loginLink.replaceWith(loginLink.cloneNode(true));
+    }
+    
+    // Re-get elements after cloning
+    const freshLoginLink = document.getElementById('loginLink');
+    const freshLogoutLink = document.getElementById('logoutLink');
+    
     if (token && isTokenValid(token)) {
         // User is logged in
-        if (loginLink) loginLink.style.display = 'none';
+        if (freshLoginLink) freshLoginLink.style.display = 'none';
         if (userMenu) userMenu.style.display = 'block';
         
         // Try to get user info from token
@@ -229,8 +241,8 @@ function initializeAuthState() {
         }
         
         // Add logout functionality
-        if (logoutLink) {
-            logoutLink.addEventListener('click', async (e) => {
+        if (freshLogoutLink) {
+            freshLogoutLink.addEventListener('click', async (e) => {
                 e.preventDefault();
                 // Import logout function dynamically to avoid circular imports
                 const { logout } = await import('./auth.mjs');
@@ -239,12 +251,12 @@ function initializeAuthState() {
         }
     } else {
         // User is not logged in
-        if (loginLink) loginLink.style.display = 'block';
+        if (freshLoginLink) freshLoginLink.style.display = 'block';
         if (userMenu) userMenu.style.display = 'none';
         
         // Add login modal functionality
-        if (loginLink) {
-            loginLink.addEventListener('click', (e) => {
+        if (freshLoginLink) {
+            freshLoginLink.addEventListener('click', (e) => {
                 e.preventDefault();
                 openLoginModal();
             });
@@ -256,6 +268,20 @@ function initializeAuthState() {
         initializeLoginModal();
     }, 50);
 }
+
+// Function to update auth state without page reload
+function updateAuthState() {
+    console.log('Updating auth state...');
+    initializeAuthState();
+    
+    // Also update cart count in case user changed
+    if (typeof cart !== 'undefined' && cart.updateCartCount) {
+        cart.updateCartCount();
+    }
+}
+
+// Make updateAuthState globally available for logout function
+window.updateAuthState = updateAuthState;
 
 // Helper function to validate JWT token
 function isTokenValid(token) {

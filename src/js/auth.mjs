@@ -90,11 +90,21 @@ export function logout() {
   // Remove auth token
   localStorage.removeItem(tokenKey);
   
-  // Note: We keep user account data so users can log back in
-  // Only clear the authentication token
+  // Also remove current user data to ensure clean logout
+  localStorage.removeItem('currentUser');
   
   console.log("User logged out");
-  window.location = "/";
+  
+  // Instead of redirecting, refresh the auth state on current page
+  // This allows the user to stay on the same page but see the logged-out state
+  
+  // Try to update auth state immediately if the function is available
+  if (typeof window.updateAuthState === 'function') {
+    window.updateAuthState();
+  } else {
+    // Fallback: reload the page to refresh auth state
+    window.location.reload();
+  }
 }
 
 export function getToken() {
