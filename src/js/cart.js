@@ -398,8 +398,8 @@ function initializeCheckoutAuthModal() {
                     module.openLoginModal();
                 }).catch(error => {
                     console.error('Error loading login modal:', error);
-                    // Fallback to redirect to login page
-                    window.location.href = '../login/login.html';
+                    // Show error message if modal fails to load
+                    alert('Unable to load login form. Please refresh the page and try again.');
                 });
             }
         };
